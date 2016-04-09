@@ -22,7 +22,7 @@ namespace space_prototype
         SpriteFont motorwerk;
 
         //Visual components
-        //Ship ship = new Ship();
+        Ship ship = new Ship();
         Asteroid asteroid = new Asteroid();
 
         //Audio components
@@ -59,8 +59,8 @@ namespace space_prototype
 
             mainSong = Content.Load<Song>("Audio/mainTheme");
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
-            //ship.Model = Content.Load<Model>("Models/torusknot");
-            //ship.Transforms = SetupEffectDefaults(ship.Model);
+            ship.Model = Content.Load<Model>("Models/torusknot");
+            ship.Transforms = SetupEffectDefaults(ship.Model);
             asteroid.Model = Content.Load<Model>("Models/asteroid");
             asteroid.Transforms = SetupEffectDefaults(asteroid.Model);
             MediaPlayer.Play(mainSong);
@@ -99,7 +99,7 @@ namespace space_prototype
             if (Keyboard.GetState().IsKeyDown(Keys.E))
                 asteroid.Position = asteroid.Position + new Vector3(0f, -5f, 0f);
 
-            //ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.2f);
+            ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.2f);
             asteroid.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.15f);
             base.Update(gameTime);
         }
@@ -114,9 +114,9 @@ namespace space_prototype
             spriteBatch.Begin();
             spriteBatch.DrawString(motorwerk, "Best Game 2016! Make Games great again!", Vector2.Zero, Color.Black);
             spriteBatch.End();
-            //Matrix shipTransformMatrix = ship.RotationMatrix*Matrix.CreateTranslation(ship.Position);
+            Matrix shipTransformMatrix = ship.RotationMatrix*Matrix.CreateTranslation(ship.Position);
             Matrix asteroidTransformMatrix = asteroid.RotationMatrix*Matrix.CreateTranslation(asteroid.Position);
-            //DrawModel(ship.Model, shipTransformMatrix, ship.Transforms);
+            DrawModel(ship.Model, shipTransformMatrix, ship.Transforms);
             DrawModel(asteroid.Model, asteroidTransformMatrix, asteroid.Transforms);
 
             base.Draw(gameTime);
