@@ -13,7 +13,7 @@ namespace space_prototype
         GraphicsDeviceManager graphics;
 
         //Camera/View information
-        Vector3 cameraPosition = new Vector3(0.0f, 250.0f, -350.0f);
+        Vector3 cameraPosition = new Vector3(0.0f, -300.0f, 10.0f);
         Matrix projectionMatrix;
         Matrix viewMatrix;
 
@@ -37,7 +37,7 @@ namespace space_prototype
         {
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),GraphicsDevice.DisplayMode.AspectRatio,1.0f, 1000.0f);
             viewMatrix = Matrix.CreateLookAt(cameraPosition,Vector3.Zero, Vector3.Up);
-            asteroid.Position = new Vector3(0f,0f, 200f);
+            asteroid.Position = new Vector3(0.1f,0f,0f);
             base.Initialize();
         }
 
