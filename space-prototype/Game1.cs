@@ -112,7 +112,7 @@ namespace space_prototype
         {
             GraphicsDevice.Clear(Color.DarkSalmon);
             spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Best Game 2016! Make Games great again!", Vector2.Zero, Color.Black);
+            spriteBatch.DrawString(motorwerk, "Best Game 2016! Make Games great again!\n Move around with WASDQE!", Vector2.Zero, Color.Black);
             spriteBatch.End();
             Matrix shipTransformMatrix = ship.RotationMatrix*Matrix.CreateTranslation(ship.Position);
             Matrix asteroidTransformMatrix = asteroid.RotationMatrix*Matrix.CreateTranslation(asteroid.Position);
