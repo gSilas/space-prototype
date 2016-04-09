@@ -69,9 +69,3 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/motorwerk.spritefont
 
-#begin Audio/mainTheme.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/mainTheme.mp3
-
