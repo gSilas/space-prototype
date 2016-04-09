@@ -17,6 +17,8 @@ namespace space_prototype
         Matrix projectionMatrix;
         Matrix viewMatrix;
 
+        SpriteFont motorwerk;
+        
         //Visual components
         Ship ship = new Ship();
         Asteroid asteroid = new Asteroid();
@@ -47,6 +49,7 @@ namespace space_prototype
         /// </summary>
         protected override void LoadContent()
         {
+          motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
           ship.Model= Content.Load<Model>("Models/torusknot");
           ship.Transforms = SetupEffectDefaults(ship.Model);
           asteroid.Model = Content.Load<Model>("Models/asteroid");

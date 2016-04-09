@@ -63,3 +63,9 @@
 /processorParam:TextureFormat=Color
 /build:Models/texture.jpg
 
+#begin Fonts/motorwerk.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/motorwerk.spritefont
+
