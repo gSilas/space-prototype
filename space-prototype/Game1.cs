@@ -13,12 +13,13 @@ namespace space_prototype
         GraphicsDeviceManager graphics;
 
         //Camera/View information
-        Vector3 cameraPosition = new Vector3(0.0f, 250.0f, 150.0f);
+        Vector3 cameraPosition = new Vector3(0.0f, 250.0f, -350.0f);
         Matrix projectionMatrix;
         Matrix viewMatrix;
 
         //Visual components
         Ship ship = new Ship();
+        Asteroid asteroid = new Asteroid();
 
         public Game1()
         {
@@ -36,7 +37,7 @@ namespace space_prototype
         {
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),GraphicsDevice.DisplayMode.AspectRatio,1.0f, 1000.0f);
             viewMatrix = Matrix.CreateLookAt(cameraPosition,Vector3.Zero, Vector3.Up);
-
+            asteroid.Position = new Vector3(0f,0f, 200f);
             base.Initialize();
         }
 
@@ -48,6 +49,8 @@ namespace space_prototype
         {
           ship.Model= Content.Load<Model>("Models/torusknot");
           ship.Transforms = SetupEffectDefaults(ship.Model);
+          asteroid.Model = Content.Load<Model>("Models/asteroid");
+          asteroid.Transforms = SetupEffectDefaults(asteroid.Model);
         }
 
         /// <summary>
@@ -69,7 +72,8 @@ namespace space_prototype
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds* MathHelper.ToRadians(0.1f);
+            ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds* MathHelper.ToRadians(0.2f);
+            asteroid.Rotation += (float)gameTime.ElapsedGameTime.TotalMilliseconds * MathHelper.ToRadians(0.05f);
             base.Update(gameTime);
         }
 
@@ -82,7 +86,9 @@ namespace space_prototype
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             Matrix shipTransformMatrix = ship.RotationMatrix * Matrix.CreateTranslation(ship.Position);
+            Matrix asteroidTransformMatrix = asteroid.RotationMatrix * Matrix.CreateTranslation(asteroid.Position);
             DrawModel(ship.Model, shipTransformMatrix, ship.Transforms);
+            DrawModel(asteroid.Model, asteroidTransformMatrix, asteroid.Transforms);
 
             base.Draw(gameTime);
         }
