@@ -16,7 +16,7 @@ namespace space_prototype
         SpriteBatch spriteBatch;
 
         //Camera/View information
-        public static Vector3 CameraPosition = new Vector3(0.0f, -300.0f, 10.0f);
+        public static Vector3 CameraPosition = new Vector3(0.0f, 300.0f, 0.1f);
         public static Matrix ProjectionMatrix;
         public static Matrix ViewMatrix;
 
@@ -43,12 +43,16 @@ namespace space_prototype
         /// </summary>
         protected override void Initialize()
         {
+            //Window
+            Window.Title = "3D Space Prototype!";
+            Window.AllowAltF4 = true;
+
             //Camera
-            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 1000.0f);
+            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(90.0f),GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 10000.0f);
             ViewMatrix = Matrix.CreateLookAt(CameraPosition, Vector3.Zero, Vector3.Up);
 
             //Entites
-            asteroid.Position = new Vector3(0.1f, 0f, 0f);
+            asteroid.Position = new Vector3(0f, 0f, 0f);
 
             base.Initialize();
         }
@@ -96,17 +100,17 @@ namespace space_prototype
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.S))
-                asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
+                asteroid.Position = asteroid.Position + new Vector3(0f, -5f, 0f);
             if (Keyboard.GetState().IsKeyDown(Keys.W))
-                asteroid.Position = asteroid.Position + new Vector3(0f, 0f, 5f);
+                asteroid.Position = asteroid.Position + new Vector3(0f, 5f, 0f);
             if(Keyboard.GetState().IsKeyDown(Keys.A))
                 asteroid.Position = asteroid.Position + new Vector3(-5f, 0f, 0f);
             if (Keyboard.GetState().IsKeyDown(Keys.D))
                 asteroid.Position = asteroid.Position + new Vector3(5f, 0f, 0f);
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
-                asteroid.Position = asteroid.Position + new Vector3(0f, 5f, 0f);
+                asteroid.Position = asteroid.Position + new Vector3(0f, 0f, 5f);
             if (Keyboard.GetState().IsKeyDown(Keys.E))
-                asteroid.Position = asteroid.Position + new Vector3(0f, -5f, 0f);
+                asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
 
             //Movement
             ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.2f);
@@ -121,7 +125,7 @@ namespace space_prototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkSalmon);
+            GraphicsDevice.Clear(Color.PaleGoldenrod);
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
