@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using space_prototype.Entities;
 
 namespace space_prototype
 {
@@ -15,9 +16,9 @@ namespace space_prototype
         SpriteBatch spriteBatch;
 
         //Camera/View information
-        Vector3 cameraPosition = new Vector3(0.0f, -300.0f, 10.0f);
-        Matrix projectionMatrix;
-        Matrix viewMatrix;
+        public static Vector3 CameraPosition = new Vector3(0.0f, -300.0f, 10.0f);
+        public static Matrix ProjectionMatrix;
+        public static Matrix ViewMatrix;
 
         SpriteFont motorwerk;
 
@@ -42,10 +43,13 @@ namespace space_prototype
         /// </summary>
         protected override void Initialize()
         {
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),
-                GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 1000.0f);
-            viewMatrix = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
+            //Camera
+            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 1000.0f);
+            ViewMatrix = Matrix.CreateLookAt(CameraPosition, Vector3.Zero, Vector3.Up);
+
+            //Entites
             asteroid.Position = new Vector3(0.1f, 0f, 0f);
+
             base.Initialize();
         }
 
@@ -57,12 +61,17 @@ namespace space_prototype
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Audio
             mainSong = Content.Load<Song>("Audio/mainTheme");
+
+            //Fonts
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
+
+            //Models
             ship.Model = Content.Load<Model>("Models/torusknot");
-            ship.Transforms = SetupEffectDefaults(ship.Model);
             asteroid.Model = Content.Load<Model>("Models/asteroid");
-            asteroid.Transforms = SetupEffectDefaults(asteroid.Model);
+
+            //Start Audio
             MediaPlayer.Play(mainSong);
         }
 
@@ -82,10 +91,10 @@ namespace space_prototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //Controls
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
             if (Keyboard.GetState().IsKeyDown(Keys.S))
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
             if (Keyboard.GetState().IsKeyDown(Keys.W))
@@ -99,8 +108,10 @@ namespace space_prototype
             if (Keyboard.GetState().IsKeyDown(Keys.E))
                 asteroid.Position = asteroid.Position + new Vector3(0f, -5f, 0f);
 
+            //Movement
             ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.2f);
             asteroid.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.15f);
+
             base.Update(gameTime);
         }
 
@@ -111,45 +122,16 @@ namespace space_prototype
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.DarkSalmon);
+
+            //2D SpriteBatch stuff
             spriteBatch.Begin();
             spriteBatch.DrawString(motorwerk, "Best Game 2016! Make Games great again!\n Move around with WASDQE!", Vector2.Zero, Color.Black);
             spriteBatch.End();
-            Matrix shipTransformMatrix = ship.RotationMatrix*Matrix.CreateTranslation(ship.Position);
-            Matrix asteroidTransformMatrix = asteroid.RotationMatrix*Matrix.CreateTranslation(asteroid.Position);
-            DrawModel(ship.Model, shipTransformMatrix, ship.Transforms);
-            DrawModel(asteroid.Model, asteroidTransformMatrix, asteroid.Transforms);
+
+            //3D stuff
+            asteroid.DrawEntity();
 
             base.Draw(gameTime);
-        }
-
-        private Matrix[] SetupEffectDefaults(Model myModel)
-        {
-            Matrix[] absoluteTransforms = new Matrix[myModel.Bones.Count];
-            myModel.CopyAbsoluteBoneTransformsTo(absoluteTransforms);
-
-            foreach (ModelMesh mesh in myModel.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.Projection = projectionMatrix;
-                    effect.View = viewMatrix;
-                }
-            }
-
-            return absoluteTransforms;
-        }
-
-        void DrawModel(Model model, Matrix modelTransform, Matrix[] absoluteBoneTransform)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.World = absoluteBoneTransform[mesh.ParentBone.Index]*modelTransform;
-                }
-                mesh.Draw();
-            }
-        }
+        }       
     }
 }
