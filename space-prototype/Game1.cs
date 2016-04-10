@@ -16,7 +16,7 @@ namespace space_prototype
         SpriteBatch spriteBatch;
 
         //Camera/View information
-        public static Vector3 CameraPosition = new Vector3(0.0f, 300.0f, 0.1f);
+        public static Vector3 CameraPosition = new Vector3(0.0f, -100.0f, 0.1f);
         public static Matrix ProjectionMatrix;
         public static Matrix ViewMatrix;
 
@@ -53,6 +53,7 @@ namespace space_prototype
 
             //Entites
             asteroid.Position = new Vector3(0f, 0f, 0f);
+            ship.Position = new Vector3(0f, 0f, 0f);
 
             base.Initialize();
         }
@@ -72,7 +73,7 @@ namespace space_prototype
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
 
             //Models
-            ship.Model = Content.Load<Model>("Models/torusknot");
+            ship.Model = Content.Load<Model>("Models/ship");
             asteroid.Model = Content.Load<Model>("Models/asteroid");
 
             //Start Audio
@@ -133,8 +134,9 @@ namespace space_prototype
             spriteBatch.End();
 
             //3D stuff
+            ship.DrawEntity();
             asteroid.DrawEntity();
-
+            
             base.Draw(gameTime);
         }       
     }
