@@ -16,7 +16,7 @@ namespace space_prototype
         SpriteBatch spriteBatch;
 
         //Camera/View information
-        public static Vector3 CameraPosition = new Vector3(0.0f, -100.0f, 0.1f);
+        public static Vector3 CameraPosition = new Vector3(0.0f, -1000.0f, 0.1f);
         public static Matrix ProjectionMatrix;
         public static Matrix ViewMatrix;
 
@@ -48,7 +48,7 @@ namespace space_prototype
             Window.AllowAltF4 = true;
 
             //Camera
-            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(90.0f),GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 10000.0f);
+            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 10000.0f);
             ViewMatrix = Matrix.CreateLookAt(CameraPosition, Vector3.Zero, Vector3.Up);
 
             //Entites
@@ -73,11 +73,12 @@ namespace space_prototype
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
 
             //Models
-            ship.Model = Content.Load<Model>("Models/ship");
+            //ship.Model = Content.Load<Model>("Models/ship");
             asteroid.Model = Content.Load<Model>("Models/asteroid");
 
             //Start Audio
             MediaPlayer.Play(mainSong);
+            MediaPlayer.Volume = 0.1f;
         }
 
         /// <summary>
@@ -114,8 +115,8 @@ namespace space_prototype
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
 
             //Movement
-            ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.2f);
-            asteroid.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.15f);
+            //ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.2f);
+            asteroid.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.05f);
 
             base.Update(gameTime);
         }
@@ -130,11 +131,11 @@ namespace space_prototype
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Best Game 2016! Make Games great again!\n Move around with WASDQE!", Vector2.Zero, Color.Black);
+            spriteBatch.DrawString(motorwerk, "Move around with WASDQE!", Vector2.Zero, Color.Black);
             spriteBatch.End();
 
             //3D stuff
-            ship.DrawEntity();
+            //ship.DrawEntity();
             asteroid.DrawEntity();
             
             base.Draw(gameTime);
