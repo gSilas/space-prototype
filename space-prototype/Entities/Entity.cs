@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace space_prototype
+namespace space_prototype.Entities
 {
-    class Ship
+    abstract class Entity
     {
         public Model Model;
+
         public Matrix[] Transforms;
 
         public Vector3 Position = Vector3.Zero;
@@ -38,6 +39,5 @@ namespace space_prototype
                 }
             }
         }
-
     }
 }
