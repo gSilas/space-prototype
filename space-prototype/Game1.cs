@@ -46,12 +46,12 @@ namespace space_prototype
 
             //Camera
             camera = new Camera(graphics.GraphicsDevice);
-            camera.Position = new Vector3(0,-100,0);
+            camera.Position = new Vector3(0, 1000, 0);
             camera.Target = Vector3.Zero;
             camera.Angle = 0f;
 
             //Entites
-            asteroid.Position = new Vector3(0f, 0f, 0f);
+            asteroid.Position = Vector3.Zero;
 
             base.Initialize();
         }
@@ -111,9 +111,6 @@ namespace space_prototype
             if (Keyboard.GetState().IsKeyDown(Keys.E))
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
 
-            //Movement
-            //asteroid.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.05f);
-
             base.Update(gameTime);
         }
 
@@ -134,6 +131,6 @@ namespace space_prototype
             asteroid.Draw(camera);
             
             base.Draw(gameTime);
-        }       
+        }
     }
 }

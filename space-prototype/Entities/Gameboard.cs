@@ -8,6 +8,6 @@ namespace space_prototype.Entities
 {
     public class Gameboard
     {
-        //TODO
+        //TODO add 3D plane for orientation
     }
 }

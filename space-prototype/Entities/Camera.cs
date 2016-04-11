@@ -20,9 +20,10 @@ namespace space_prototype.Tools
         {
             get
             {
-                Target = Vector3.Transform(Target, Matrix.CreateRotationZ(Angle));
-                Target += Position;
-                return Matrix.CreateLookAt(Position, Target, Vector3.Up);
+                //TODO Add rotation
+                //Target = Vector3.Transform(Target, Matrix.CreateRotationZ(Angle));
+                //Target += Position;
+                return Matrix.CreateLookAt(Position, Target, Vector3.UnitZ);
             }
         }
 
@@ -31,7 +32,7 @@ namespace space_prototype.Tools
             get
             {
                 float fieldOfView = MathHelper.PiOver4;
-                float nearClipPlane = 0.1f;
+                float nearClipPlane = 1f;
                 float farClipPlane = 10000;
                 float aspectRatio = _graphicsDevice.DisplayMode.AspectRatio;
 
