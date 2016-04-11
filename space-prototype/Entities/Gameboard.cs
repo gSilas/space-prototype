@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace space_prototype.Entities
 {
-    public class Plane
+    public class Gameboard
     {
         //TODO
     }

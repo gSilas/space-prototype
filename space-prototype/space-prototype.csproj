@@ -40,7 +40,7 @@
   <ItemGroup>
     <Compile Include="Entities\Asteroid.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Plane.cs" />
+    <Compile Include="Entities\Gameboard.cs" />
     <Compile Include="Entities\Ship.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
