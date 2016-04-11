@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using space_prototype.Entities;
 
 namespace space_prototype
 {
@@ -23,7 +21,6 @@ namespace space_prototype
         SpriteFont motorwerk;
 
         //Visual components
-        Ship ship = new Ship();
         Asteroid asteroid = new Asteroid();
 
         //Audio components
@@ -48,12 +45,11 @@ namespace space_prototype
             Window.AllowAltF4 = true;
 
             //Camera
-            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 10000.0f);
+            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 1000.0f);
             ViewMatrix = Matrix.CreateLookAt(CameraPosition, Vector3.Zero, Vector3.Up);
 
             //Entites
             asteroid.Position = new Vector3(0f, 0f, 0f);
-            ship.Position = new Vector3(0f, 0f, 0f);
 
             base.Initialize();
         }
@@ -73,7 +69,6 @@ namespace space_prototype
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
 
             //Models
-            //ship.Model = Content.Load<Model>("Models/ship");
             asteroid.Model = Content.Load<Model>("Models/asteroid");
 
             //Start Audio
@@ -115,7 +110,6 @@ namespace space_prototype
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
 
             //Movement
-            //ship.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.2f);
             asteroid.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.05f);
 
             base.Update(gameTime);
@@ -135,7 +129,6 @@ namespace space_prototype
             spriteBatch.End();
 
             //3D stuff
-            //ship.DrawEntity();
             asteroid.DrawEntity();
             
             base.Draw(gameTime);
