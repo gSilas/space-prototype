@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using space_prototype.Tools;
 
 namespace space_prototype
 {
@@ -10,10 +11,12 @@ namespace space_prototype
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        //Render stuff
+        static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         //Camera/View information
+        Camera camera;
 
         SpriteFont motorwerk;
 
@@ -38,8 +41,14 @@ namespace space_prototype
         protected override void Initialize()
         {
             //Window
-            Window.Title = "3D Space Prototype!";
+            Window.Title = "3D Space Prototype";
             Window.AllowAltF4 = true;
+
+            //Camera
+            camera = new Camera(graphics.GraphicsDevice);
+            camera.Position = new Vector3(0,-100,0);
+            camera.Target = Vector3.Zero;
+            camera.Angle = 0f;
 
             //Entites
             asteroid.Position = new Vector3(0f, 0f, 0f);
@@ -62,7 +71,7 @@ namespace space_prototype
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
 
             //Models
-            asteroid.Initialize(Content,"asteroid");
+            asteroid.Initialize(Content, "models/asteroid");
 
             //Start Audio
             MediaPlayer.Play(mainSong);
@@ -103,7 +112,7 @@ namespace space_prototype
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
 
             //Movement
-            asteroid.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.05f);
+            //asteroid.Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.05f);
 
             base.Update(gameTime);
         }
@@ -114,14 +123,15 @@ namespace space_prototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.PaleGoldenrod);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Move around with WASDQE!", Vector2.Zero, Color.Black);
+            spriteBatch.DrawString(motorwerk, "Move the asteroid around with WASDQE!", Vector2.Zero, Color.Black);
             spriteBatch.End();
 
             //3D stuff
+            asteroid.Draw(camera);
             
             base.Draw(gameTime);
         }       

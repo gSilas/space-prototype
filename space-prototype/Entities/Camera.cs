@@ -5,7 +5,7 @@ namespace space_prototype.Tools
 {
     public class Camera
     {
-        GraphicsDevice graphicsDevice;
+        private readonly GraphicsDevice _graphicsDevice;
 
         public Vector3 Position;
         public Vector3 Target;
@@ -13,7 +13,7 @@ namespace space_prototype.Tools
 
         public Camera(GraphicsDevice graphicsDevice)
         {
-            this.graphicsDevice = graphicsDevice;
+            this._graphicsDevice = graphicsDevice;
         }
 
         public Matrix ViewMatrix
@@ -31,9 +31,9 @@ namespace space_prototype.Tools
             get
             {
                 float fieldOfView = MathHelper.PiOver4;
-                float nearClipPlane = 1;
-                float farClipPlane = 200;
-                float aspectRatio = graphicsDevice.DisplayMode.AspectRatio;
+                float nearClipPlane = 0.1f;
+                float farClipPlane = 10000;
+                float aspectRatio = _graphicsDevice.DisplayMode.AspectRatio;
 
                 return Matrix.CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, nearClipPlane, farClipPlane);
             }

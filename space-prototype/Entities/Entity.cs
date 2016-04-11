@@ -50,7 +50,6 @@ namespace space_prototype.Entities
                 {
                     effect.EnableDefaultLighting();
                     effect.PreferPerPixelLighting = true;
-
                     effect.World = effect.World;
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;

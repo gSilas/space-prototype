@@ -8,6 +8,7 @@ namespace space_prototype.Entities
 {
     public class Ship : Entity
     {
+        //TODO
         public override void Move()
         {
             throw new NotImplementedException();

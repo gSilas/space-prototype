@@ -8,5 +8,6 @@ namespace space_prototype.Entities
 {
     public class Plane
     {
+        //TODO
     }
 }
