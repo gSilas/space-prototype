@@ -14,9 +14,6 @@ namespace space_prototype
         SpriteBatch spriteBatch;
 
         //Camera/View information
-        public static Vector3 CameraPosition = new Vector3(0.0f, -1000.0f, 0.1f);
-        public static Matrix ProjectionMatrix;
-        public static Matrix ViewMatrix;
 
         SpriteFont motorwerk;
 
@@ -44,10 +41,6 @@ namespace space_prototype
             Window.Title = "3D Space Prototype!";
             Window.AllowAltF4 = true;
 
-            //Camera
-            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f),GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 1000.0f);
-            ViewMatrix = Matrix.CreateLookAt(CameraPosition, Vector3.Zero, Vector3.Up);
-
             //Entites
             asteroid.Position = new Vector3(0f, 0f, 0f);
 
@@ -69,7 +62,7 @@ namespace space_prototype
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
 
             //Models
-            asteroid.Model = Content.Load<Model>("Models/asteroid");
+            asteroid.Initialize(Content,"asteroid");
 
             //Start Audio
             MediaPlayer.Play(mainSong);
@@ -129,7 +122,6 @@ namespace space_prototype
             spriteBatch.End();
 
             //3D stuff
-            asteroid.DrawEntity();
             
             base.Draw(gameTime);
         }       

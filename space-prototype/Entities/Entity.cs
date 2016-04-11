@@ -1,44 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using space_prototype.Tools;
 
 namespace space_prototype.Entities
 {
-    abstract class Entity
+    public abstract class Entity
     {
         private Model _model;
-
-        public Matrix[] Transforms;
-
-        public Model Model
-        {
-            get { return _model; }
-            set
-            {
-                _model = value;
-                Matrix[] absoluteTransforms = new Matrix[_model.Bones.Count];
-                _model.CopyAbsoluteBoneTransformsTo(absoluteTransforms);
-
-                foreach (ModelMesh mesh in _model.Meshes)
-                {
-                    foreach (BasicEffect effect in mesh.Effects)
-                    {
-                        effect.EnableDefaultLighting();
-                        effect.Projection = Game1.ProjectionMatrix;
-                        effect.View = Game1.ViewMatrix;
-                    }
-                }
-
-                Transforms = absoluteTransforms;
-            }
-        }
+        private float _rotation;
 
         public Vector3 Position = Vector3.Zero;
-
-        public Vector3 Velocity = Vector3.Zero;
-
         public Matrix RotationMatrix = Matrix.Identity;
 
-        private float _rotation;
+        public void Initialize(ContentManager contentManager, string name)
+        {
+            _model = contentManager.Load<Model>(name);
+
+        }
 
         public float Rotation
         {
@@ -63,14 +42,20 @@ namespace space_prototype.Entities
             }
         }
 
-        public void DrawEntity()
+        public void Draw(Camera camera)
         {
-            foreach (ModelMesh mesh in Model.Meshes)
+            foreach (var mesh in _model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.World = Transforms[mesh.ParentBone.Index] * RotationMatrix * Matrix.CreateTranslation(Position);
+                    effect.EnableDefaultLighting();
+                    effect.PreferPerPixelLighting = true;
+
+                    effect.World = effect.World;
+                    effect.View = camera.ViewMatrix;
+                    effect.Projection = camera.ProjectionMatrix;
                 }
+
                 mesh.Draw();
             }
         }

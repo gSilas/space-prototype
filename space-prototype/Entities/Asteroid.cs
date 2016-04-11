@@ -2,7 +2,7 @@
 
 namespace space_prototype
 {
-    class Asteroid : Entities.Entity
+    public class Asteroid : Entities.Entity
     {
         public override void Move()
         {
