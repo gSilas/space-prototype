@@ -24,6 +24,7 @@ namespace space_prototype
 
         //Visual components
         Asteroid asteroid;
+        private Ship ship;
         Gameboard plane;
 
         //Audio components
@@ -51,7 +52,7 @@ namespace space_prototype
             camera = new Camera(graphics.GraphicsDevice);
             camera.Position = new Vector3(0, 60, 20);
             camera.Target = Vector3.Zero;
-            camera.UpVector = Vector3.UnitZ;
+            camera.UpVector = Vector3.UnitY;
             camera.FieldOfView = MathHelper.PiOver4;
             camera.NearClipPlane = 0.1f;
             camera.FarClipPlane = 10000f;
@@ -60,7 +61,10 @@ namespace space_prototype
             //Plane
             plane = new Gameboard();
             plane.Initialize(graphics);
+
             //Entites
+            ship = new Ship();
+            ship.Position = new Vector3(0,-1000,-655);
             asteroid = new Asteroid();
             asteroid.Position = new Vector3(0,-1100,-755);
 
@@ -83,9 +87,10 @@ namespace space_prototype
 
             //Models
             asteroid.Initialize(Content, "models/asteroid");
+            ship.Initialize(Content,"models/spaceship");
 
             //Plane
-            plane.LoadTexture();
+            plane.LoadTexture(Content.Load<Texture2D>("Models/checkerboard"));
 
             //Start Audio
             MediaPlayer.Play(mainSong);
@@ -113,21 +118,45 @@ namespace space_prototype
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
                 asteroid.Position = asteroid.Position + new Vector3(0f, -5f, 0f);
+                ship.Position = ship.Position + new Vector3(0f, -5f, 0f);
+            }
+
             if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
                 asteroid.Position = asteroid.Position + new Vector3(0f, 5f, 0f);
-            if(Keyboard.GetState().IsKeyDown(Keys.A))
+                ship.Position = ship.Position + new Vector3(0f, 5f, 0f);
+            }
+                
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
                 asteroid.Position = asteroid.Position + new Vector3(-5f, 0f, 0f);
+                ship.Position = ship.Position + new Vector3(-5f, 0f, 0f);
+            }
+                
             if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
                 asteroid.Position = asteroid.Position + new Vector3(5f, 0f, 0f);
+                ship.Position = ship.Position + new Vector3(5f,0f, 0f);
+            }
+                
             if (Keyboard.GetState().IsKeyDown(Keys.Q))
+            {
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, 5f);
+                ship.Position = ship.Position + new Vector3(0f, 0f, 5f);
+            }
+               
             if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
+                ship.Position = ship.Position + new Vector3(0f, 0f, -5f);
+            }
+                
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 camera.Position = camera.Position + new Vector3(0,1,0);
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                camera.Position = camera.Position - new Vector3(0, 1, 0);
+                camera.Position = camera.Position - new Vector3(0,1,0);
             Console.WriteLine(camera.Position.ToString());
             Console.WriteLine(asteroid.Position.ToString());
             base.Update(gameTime);
@@ -149,6 +178,7 @@ namespace space_prototype
             //3D stuff
             plane.Draw(camera);
             asteroid.Draw(camera);
+            ship.Draw(camera);
             
             base.Draw(gameTime);
         }

@@ -24,9 +24,10 @@ namespace space_prototype.Entities
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
+                    //TODO hacked upvector
                     effect.EnableDefaultLighting();
                     effect.PreferPerPixelLighting = true;
-                    effect.World = Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitZ);
+                    effect.World = Matrix.CreateWorld(Position, Vector3.UnitX, camera.UpVector);
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;
                 }

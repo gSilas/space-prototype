@@ -11,12 +11,9 @@ namespace space_prototype.Entities
         private Texture2D _texture;
         private GraphicsDeviceManager _graphics;
 
-        public void LoadTexture()
+        public void LoadTexture(Texture2D tex)
         {
-            using (var stream = TitleContainer.OpenStream("Content/checkerboard.png"))
-            {
-                _texture = Texture2D.FromStream(_graphics.GraphicsDevice, stream);
-            }
+            _texture = tex;
         }
 
         //TODO add 3D plane for orientation
