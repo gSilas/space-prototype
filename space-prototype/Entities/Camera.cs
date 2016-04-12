@@ -9,6 +9,10 @@ namespace space_prototype.Tools
 
         public Vector3 Position;
         public Vector3 Target;
+        public Vector3 UpVector;
+        public float FarClipPlane;
+        public float NearClipPlane;
+        public float FieldOfView;
         public float Angle;
 
         public Camera(GraphicsDevice graphicsDevice)
@@ -23,7 +27,7 @@ namespace space_prototype.Tools
                 //TODO Add rotation
                 //Target = Vector3.Transform(Target, Matrix.CreateRotationZ(Angle));
                 //Target += Position;
-                return Matrix.CreateLookAt(Position, Target, Vector3.UnitZ);
+                return Matrix.CreateLookAt(Position, Target, UpVector);
             }
         }
 
@@ -31,12 +35,9 @@ namespace space_prototype.Tools
         {
             get
             {
-                float fieldOfView = MathHelper.PiOver4;
-                float nearClipPlane = 1f;
-                float farClipPlane = 10000;
                 float aspectRatio = _graphicsDevice.DisplayMode.AspectRatio;
 
-                return Matrix.CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, nearClipPlane, farClipPlane);
+                return Matrix.CreatePerspectiveFieldOfView(FieldOfView, aspectRatio, NearClipPlane, FarClipPlane);
             }
         }
 

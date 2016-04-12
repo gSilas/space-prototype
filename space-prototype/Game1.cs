@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using space_prototype.Entities;
 using space_prototype.Tools;
 
 namespace space_prototype
@@ -21,7 +23,8 @@ namespace space_prototype
         SpriteFont motorwerk;
 
         //Visual components
-        Asteroid asteroid = new Asteroid();
+        Asteroid asteroid;
+        Gameboard plane;
 
         //Audio components
         Song mainSong;
@@ -46,12 +49,20 @@ namespace space_prototype
 
             //Camera
             camera = new Camera(graphics.GraphicsDevice);
-            camera.Position = new Vector3(0, 1000, 0);
+            camera.Position = new Vector3(0, 60, 20);
             camera.Target = Vector3.Zero;
+            camera.UpVector = Vector3.UnitZ;
+            camera.FieldOfView = MathHelper.PiOver4;
+            camera.NearClipPlane = 0.1f;
+            camera.FarClipPlane = 10000f;
             camera.Angle = 0f;
 
+            //Plane
+            plane = new Gameboard();
+            plane.Initialize(graphics);
             //Entites
-            asteroid.Position = Vector3.Zero;
+            asteroid = new Asteroid();
+            asteroid.Position = new Vector3(0,-1100,-755);
 
             base.Initialize();
         }
@@ -72,6 +83,9 @@ namespace space_prototype
 
             //Models
             asteroid.Initialize(Content, "models/asteroid");
+
+            //Plane
+            plane.LoadTexture();
 
             //Start Audio
             MediaPlayer.Play(mainSong);
@@ -110,7 +124,12 @@ namespace space_prototype
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, 5f);
             if (Keyboard.GetState().IsKeyDown(Keys.E))
                 asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
-
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                camera.Position = camera.Position + new Vector3(0,1,0);
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                camera.Position = camera.Position - new Vector3(0, 1, 0);
+            Console.WriteLine(camera.Position.ToString());
+            Console.WriteLine(asteroid.Position.ToString());
             base.Update(gameTime);
         }
 
@@ -128,6 +147,7 @@ namespace space_prototype
             spriteBatch.End();
 
             //3D stuff
+            plane.Draw(camera);
             asteroid.Draw(camera);
             
             base.Draw(gameTime);
