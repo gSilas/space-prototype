@@ -51,7 +51,7 @@ namespace space_prototype
 
             //Camera
             camera = new Camera(graphics.GraphicsDevice);
-            camera.Position = new Vector3(0, 0, 100);
+            camera.Position = new Vector3(0, 100, 0.0001f);
             camera.Target = Vector3.Zero;
             camera.UpVector = Vector3.UnitY;
             camera.FieldOfView = MathHelper.PiOver4;
@@ -68,7 +68,7 @@ namespace space_prototype
             //Entites
             asteroidField = new AsteroidField(10);
             ship = new Ship();
-            ship.Position = new Vector3(-52, 0, 20);
+            ship.Position = new Vector3(0, -52, 20);
 
             base.Initialize();
         }
