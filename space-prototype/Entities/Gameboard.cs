@@ -20,9 +20,8 @@ namespace space_prototype.Entities
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    //TODO hacked upvector
                     effect.Alpha = 0.7f;
-                    effect.World = Matrix.CreateWorld(_position, Vector3.UnitX, Vector3.UnitZ);
+                    effect.World = Matrix.CreateWorld(_position, Vector3.UnitX, Vector3.UnitY);
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;
                 }

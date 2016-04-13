@@ -47,7 +47,6 @@ namespace space_prototype.Entities
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    //TODO hacked upvector
                     effect.EnableDefaultLighting();
                     effect.PreferPerPixelLighting = true;
                     effect.World = RotationMatrix*Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitY);
@@ -62,7 +61,6 @@ namespace space_prototype.Entities
         public void RotateY()
         {
             RotationMatrix = Matrix.CreateFromAxisAngle(Vector3.UnitY, _rotation);
-            
         }
     }
 }

@@ -19,7 +19,7 @@ namespace space_prototype.Entities
                 var r1 = _random.Next(-24, 24);
                 var r2 = _random.Next(0, 20);
 
-                var vec = new Vector3(-50 + r2,20 ,r1);
+                var vec = new Vector3(-50 + r2, 20, r1);
                 asteroidList.Add(new Asteroid(vec));
             }
         }
