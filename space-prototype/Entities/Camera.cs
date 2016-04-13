@@ -7,7 +7,6 @@ namespace space_prototype.Entities
     public class Camera
     {
         private readonly GraphicsDevice _graphicsDevice;
-        public float Angle;
         public float FarClipPlane;
         public float FieldOfView;
         public float NearClipPlane;

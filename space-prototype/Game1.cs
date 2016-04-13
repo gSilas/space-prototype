@@ -27,7 +27,6 @@ namespace space_prototype
         //Visual components
         private SpriteFont motorwerk;
         private Gameboard plane;
-        private Random rand;
         private Ship ship;
         private SpriteBatch spriteBatch;
 
@@ -57,10 +56,6 @@ namespace space_prototype
             camera.FieldOfView = MathHelper.PiOver4;
             camera.NearClipPlane = 0.1f;
             camera.FarClipPlane = 10000f;
-            camera.Angle = 0f;
-
-            //Generators
-            rand = new Random();
 
             //Plane
             plane = new Gameboard();
@@ -79,6 +74,7 @@ namespace space_prototype
         /// </summary>
         protected override void LoadContent()
         {
+            //2D spritebatch
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //Audio
@@ -117,9 +113,12 @@ namespace space_prototype
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            //Update Block
             camera.Update(gameTime);
             asteroidField.Update(gameTime);
             ship.Update(gameTime);
+
             base.Update(gameTime);
         }
 
