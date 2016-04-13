@@ -1,34 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using space_prototype.Entities;
-using space_prototype.Tools;
 
 namespace space_prototype
 {
     /// <summary>
-    /// This is the main type for your game.
+    ///     This is the main type for your game.
     /// </summary>
     public class Game1 : Game
     {
         //Render stuff
-        static GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private static GraphicsDeviceManager graphics;
+        private Asteroid asteroid2;
+        private List<Asteroid> asteroidList;
 
         //Camera/View information
-        Camera camera;
-
-        SpriteFont motorwerk;
-
-        //Visual components
-        Asteroid asteroid;
-        private Ship ship;
-        Gameboard plane;
+        private Camera camera;
 
         //Audio components
-        Song mainSong;
+        private Song mainSong;
+
+        //Visual components
+        private SpriteFont motorwerk;
+        private Gameboard plane;
+
+        //Generators
+        private Random rand;
+        private Ship ship;
+        private SpriteBatch spriteBatch;
 
         public Game1()
         {
@@ -37,10 +40,10 @@ namespace space_prototype
         }
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        ///     Allows the game to perform any initialization it needs to before starting to run.
+        ///     This is where it can query for any required services and load any non-graphic
+        ///     related content.  Calling base.Initialize will enumerate through any components
+        ///     and initialize them as well.
         /// </summary>
         protected override void Initialize()
         {
@@ -50,7 +53,7 @@ namespace space_prototype
 
             //Camera
             camera = new Camera(graphics.GraphicsDevice);
-            camera.Position = new Vector3(0, 60, 20);
+            camera.Position = new Vector3(0, 0, 100);
             camera.Target = Vector3.Zero;
             camera.UpVector = Vector3.UnitY;
             camera.FieldOfView = MathHelper.PiOver4;
@@ -58,22 +61,33 @@ namespace space_prototype
             camera.FarClipPlane = 10000f;
             camera.Angle = 0f;
 
+            //Generators
+            rand = new Random();
+
+            //Containers
+            asteroidList = new List<Asteroid>();
+
             //Plane
             plane = new Gameboard();
-            plane.Initialize(graphics);
 
             //Entites
             ship = new Ship();
-            ship.Position = new Vector3(0,-1000,-655);
-            asteroid = new Asteroid();
-            asteroid.Position = new Vector3(0,-1100,-755);
+            ship.Position = new Vector3(-52, 0, 20);
+
+            for (var i = 0; i < 11; i++)
+            {
+                var r = rand.Next(21);
+                var vec = new Vector3(50 - r, r - 7*i, 20);
+                asteroidList.Add(new Asteroid(vec));
+            }
+
 
             base.Initialize();
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
+        ///     LoadContent will be called once per game and is the place to load
+        ///     all of your content.
         /// </summary>
         protected override void LoadContent()
         {
@@ -86,11 +100,12 @@ namespace space_prototype
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
 
             //Models
-            asteroid.Initialize(Content, "models/asteroid");
-            ship.Initialize(Content,"models/spaceship");
-
-            //Plane
-            plane.LoadTexture(Content.Load<Texture2D>("Models/checkerboard"));
+            plane.Initialize(Content, "models/bgplane");
+            foreach (var asteroid in asteroidList)
+            {
+                asteroid.Initialize(Content, "models/asteroid");
+            }
+            ship.Initialize(Content, "models/spaceship");
 
             //Start Audio
             MediaPlayer.Play(mainSong);
@@ -98,8 +113,8 @@ namespace space_prototype
         }
 
         /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
+        ///     UnloadContent will be called once per game and is the place to unload
+        ///     game-specific content.
         /// </summary>
         protected override void UnloadContent()
         {
@@ -107,8 +122,8 @@ namespace space_prototype
         }
 
         /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
+        ///     Allows the game to run logic such as updating the world,
+        ///     checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
@@ -117,53 +132,17 @@ namespace space_prototype
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                asteroid.Position = asteroid.Position + new Vector3(0f, -5f, 0f);
-                ship.Position = ship.Position + new Vector3(0f, -5f, 0f);
-            }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            foreach (var asteroid in asteroidList)
             {
-                asteroid.Position = asteroid.Position + new Vector3(0f, 5f, 0f);
-                ship.Position = ship.Position + new Vector3(0f, 5f, 0f);
+                asteroid.Update(gameTime);
             }
-                
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                asteroid.Position = asteroid.Position + new Vector3(-5f, 0f, 0f);
-                ship.Position = ship.Position + new Vector3(-5f, 0f, 0f);
-            }
-                
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                asteroid.Position = asteroid.Position + new Vector3(5f, 0f, 0f);
-                ship.Position = ship.Position + new Vector3(5f,0f, 0f);
-            }
-                
-            if (Keyboard.GetState().IsKeyDown(Keys.Q))
-            {
-                asteroid.Position = asteroid.Position + new Vector3(0f, 0f, 5f);
-                ship.Position = ship.Position + new Vector3(0f, 0f, 5f);
-            }
-               
-            if (Keyboard.GetState().IsKeyDown(Keys.E))
-            {
-                asteroid.Position = asteroid.Position + new Vector3(0f, 0f, -5f);
-                ship.Position = ship.Position + new Vector3(0f, 0f, -5f);
-            }
-                
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                camera.Position = camera.Position + new Vector3(0,1,0);
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                camera.Position = camera.Position - new Vector3(0,1,0);
-            Console.WriteLine(camera.Position.ToString());
-            Console.WriteLine(asteroid.Position.ToString());
+            ship.Update(gameTime);
             base.Update(gameTime);
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        ///     This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
@@ -172,14 +151,21 @@ namespace space_prototype
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Move the asteroid around with WASDQE!", Vector2.Zero, Color.Black);
+            spriteBatch.DrawString(motorwerk, "Move the ship around with WS!", Vector2.Zero, Color.Black);
             spriteBatch.End();
+
+            camera.Update(gameTime);
 
             //3D stuff
             plane.Draw(camera);
-            asteroid.Draw(camera);
+
+            foreach (var asteroid in asteroidList)
+            {
+                asteroid.Draw(camera);
+            }
+
             ship.Draw(camera);
-            
+
             base.Draw(gameTime);
         }
     }

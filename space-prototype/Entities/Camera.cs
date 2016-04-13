@@ -1,23 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace space_prototype.Tools
+namespace space_prototype.Entities
 {
     public class Camera
     {
         private readonly GraphicsDevice _graphicsDevice;
+        public float Angle;
+        public float FarClipPlane;
+        public float FieldOfView;
+        public float NearClipPlane;
 
         public Vector3 Position;
         public Vector3 Target;
         public Vector3 UpVector;
-        public float FarClipPlane;
-        public float NearClipPlane;
-        public float FieldOfView;
-        public float Angle;
 
         public Camera(GraphicsDevice graphicsDevice)
         {
-            this._graphicsDevice = graphicsDevice;
+            _graphicsDevice = graphicsDevice;
         }
 
         public Matrix ViewMatrix
@@ -35,7 +36,7 @@ namespace space_prototype.Tools
         {
             get
             {
-                float aspectRatio = _graphicsDevice.DisplayMode.AspectRatio;
+                var aspectRatio = _graphicsDevice.DisplayMode.AspectRatio;
 
                 return Matrix.CreatePerspectiveFieldOfView(FieldOfView, aspectRatio, NearClipPlane, FarClipPlane);
             }
@@ -43,6 +44,10 @@ namespace space_prototype.Tools
 
         public void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                Position = Position + new Vector3(0, 100, 0);
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                Position = Position - new Vector3(0, 100, 0);
         }
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace space_prototype.Entities
 {
@@ -12,7 +8,15 @@ namespace space_prototype.Entities
         //TODO
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                Position = Position + new Vector3(0f, 1f, 0f);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                Position = Position + new Vector3(0f, -1f, 0f);
+            }
         }
     }
 }

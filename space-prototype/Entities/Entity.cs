@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using space_prototype.Tools;
 
 namespace space_prototype.Entities
 {
@@ -9,7 +8,33 @@ namespace space_prototype.Entities
     {
         private Model _model;
 
+        private float _rotation;
+
+        private Matrix _rotationMatrix = Matrix.Identity;
+
         public Vector3 Position = Vector3.Zero;
+
+        public float Rotation
+        {
+            get { return _rotation; }
+            set
+            {
+                var newVal = value;
+
+                while (newVal < 0)
+                {
+                    newVal += MathHelper.TwoPi;
+                }
+                while (newVal >= MathHelper.TwoPi)
+                {
+                    newVal -= MathHelper.TwoPi;
+                }
+                if (_rotation != newVal)
+                {
+                    _rotation = newVal;
+                }
+            }
+        }
 
         public void Initialize(ContentManager contentManager, string name)
         {
@@ -27,13 +52,18 @@ namespace space_prototype.Entities
                     //TODO hacked upvector
                     effect.EnableDefaultLighting();
                     effect.PreferPerPixelLighting = true;
-                    effect.World = Matrix.CreateWorld(Position, Vector3.UnitX, camera.UpVector);
+                    effect.World = _rotationMatrix*Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitZ);
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;
                 }
 
                 mesh.Draw();
             }
+        }
+
+        public void RotateY()
+        {
+            _rotationMatrix = Matrix.CreateRotationX(MathHelper.PiOver2)*Matrix.CreateRotationY(_rotation);
         }
     }
 }
