@@ -37,9 +37,17 @@ namespace space_prototype.Entities
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                Position = Position + new Vector3(0, 1, 0);
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.I))
+                Position = Position + new Vector3(1, 0, 0);
+            if (Keyboard.GetState().IsKeyDown(Keys.K))
+                Position = Position - new Vector3(1, 0, 0);
+            if (Keyboard.GetState().IsKeyDown(Keys.U))
+                Position = Position - new Vector3(0, 0, 1);
+            if (Keyboard.GetState().IsKeyDown(Keys.O))
+                Position = Position - new Vector3(0, 0, 1);
+            if (Keyboard.GetState().IsKeyDown(Keys.J))
+                Position = Position - new Vector3(0, 1, 0);
+            if (Keyboard.GetState().IsKeyDown(Keys.L))
                 Position = Position - new Vector3(0, 1, 0);
         }
     }
