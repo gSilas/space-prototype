@@ -23,10 +23,7 @@ namespace space_prototype.Entities
 
         public Matrix ViewMatrix
         {
-            get
-            {
-                return Matrix.CreateLookAt(Position, Target, UpVector);
-            }
+            get { return Matrix.CreateLookAt(Position, Target, UpVector); }
         }
 
         public Matrix ProjectionMatrix

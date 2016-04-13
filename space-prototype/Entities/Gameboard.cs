@@ -6,7 +6,7 @@ namespace space_prototype.Entities
 {
     public class Gameboard
     {
-        private readonly Vector3 _position = new Vector3(0,0,0);
+        private readonly Vector3 _position = new Vector3(0, 0, 0);
         private Model _model;
 
         public void Initialize(ContentManager contentManager, string name)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,7 +13,10 @@ namespace space_prototype
     public class Game1 : Game
     {
         //Render stuff
-        private static GraphicsDeviceManager graphics;       
+        private static GraphicsDeviceManager graphics;
+
+        //3D Models
+        private AsteroidField asteroidField;
 
         //Camera/View information
         private Camera camera;
@@ -25,9 +27,6 @@ namespace space_prototype
         //Visual components
         private SpriteFont motorwerk;
         private Gameboard plane;
-
-        //3D Models
-        private AsteroidField asteroidField;
         private Random rand;
         private Ship ship;
         private SpriteBatch spriteBatch;
@@ -139,7 +138,8 @@ namespace space_prototype
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Move around with W (Up) and S (Down)!",new Vector2(50,0), Color.LightGoldenrodYellow);
+            spriteBatch.DrawString(motorwerk, "Move around with W (Up) and S (Down)!", new Vector2(50, 0),
+                Color.LightGoldenrodYellow);
             spriteBatch.End();
             base.Draw(gameTime);
         }

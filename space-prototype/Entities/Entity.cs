@@ -8,9 +8,9 @@ namespace space_prototype.Entities
     {
         private Model _model;
         private float _rotation;
+        public Vector3 Position = Vector3.Zero;
 
         public Matrix RotationMatrix = Matrix.Identity;
-        public Vector3 Position = Vector3.Zero;
 
         public float Rotation
         {

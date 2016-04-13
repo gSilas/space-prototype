@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework.Content;
 
 namespace space_prototype.Entities
 {
-    class AsteroidField
+    internal class AsteroidField
     {
-        private Random _random = new Random();
-        private List<Asteroid> asteroidList;
+        private readonly Random _random = new Random();
+        private readonly List<Asteroid> asteroidList;
 
         public AsteroidField(int size)
         {
@@ -16,10 +16,10 @@ namespace space_prototype.Entities
 
             for (var i = 0; i < size; i++)
             {
-                var r1 = _random.Next(-24,24);
-                var r2 = _random.Next(0,20);
+                var r1 = _random.Next(-24, 24);
+                var r2 = _random.Next(0, 20);
 
-                var vec = new Vector3(50-r2,r1,20);
+                var vec = new Vector3(50 - r2, r1, 20);
                 asteroidList.Add(new Asteroid(vec));
             }
         }
@@ -42,11 +42,10 @@ namespace space_prototype.Entities
 
         public void Draw(Camera camera)
         {
-
             foreach (var asteroid in asteroidList)
             {
                 asteroid.Draw(camera);
             }
         }
-}
+    }
 }
