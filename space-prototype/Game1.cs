@@ -14,9 +14,7 @@ namespace space_prototype
     public class Game1 : Game
     {
         //Render stuff
-        private static GraphicsDeviceManager graphics;
-        private Asteroid asteroid2;
-        private List<Asteroid> asteroidList;
+        private static GraphicsDeviceManager graphics;       
 
         //Camera/View information
         private Camera camera;
@@ -28,7 +26,8 @@ namespace space_prototype
         private SpriteFont motorwerk;
         private Gameboard plane;
 
-        //Generators
+        //3D Models
+        private AsteroidField asteroidField;
         private Random rand;
         private Ship ship;
         private SpriteBatch spriteBatch;
@@ -64,23 +63,13 @@ namespace space_prototype
             //Generators
             rand = new Random();
 
-            //Containers
-            asteroidList = new List<Asteroid>();
-
             //Plane
             plane = new Gameboard();
 
             //Entites
+            asteroidField = new AsteroidField(10);
             ship = new Ship();
             ship.Position = new Vector3(-52, 0, 20);
-
-            for (var i = 0; i < 11; i++)
-            {
-                var r = rand.Next(21);
-                var vec = new Vector3(50 - r, r - 7*i, 20);
-                asteroidList.Add(new Asteroid(vec));
-            }
-
 
             base.Initialize();
         }
@@ -100,11 +89,8 @@ namespace space_prototype
             motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
 
             //Models
+            asteroidField.Initialize(Content);
             plane.Initialize(Content, "models/bgplane");
-            foreach (var asteroid in asteroidList)
-            {
-                asteroid.Initialize(Content, "models/asteroid");
-            }
             ship.Initialize(Content, "models/spaceship");
 
             //Start Audio
@@ -132,11 +118,8 @@ namespace space_prototype
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            foreach (var asteroid in asteroidList)
-            {
-                asteroid.Update(gameTime);
-            }
+            camera.Update(gameTime);
+            asteroidField.Update(gameTime);
             ship.Update(gameTime);
             base.Update(gameTime);
         }
@@ -147,25 +130,17 @@ namespace space_prototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            //2D SpriteBatch stuff
-            spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Move the ship around with WS!", Vector2.Zero, Color.Black);
-            spriteBatch.End();
-
-            camera.Update(gameTime);
+            GraphicsDevice.Clear(Color.DarkBlue);
 
             //3D stuff
             plane.Draw(camera);
-
-            foreach (var asteroid in asteroidList)
-            {
-                asteroid.Draw(camera);
-            }
-
             ship.Draw(camera);
+            asteroidField.Draw(camera);
 
+            //2D SpriteBatch stuff
+            spriteBatch.Begin();
+            spriteBatch.DrawString(motorwerk, "Move around with W (Up) and S (Down)!",new Vector2(50,0), Color.LightGoldenrodYellow);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

@@ -25,9 +25,6 @@ namespace space_prototype.Entities
         {
             get
             {
-                //TODO Add rotation
-                //Target = Vector3.Transform(Target, Matrix.CreateRotationZ(Angle));
-                //Target += Position;
                 return Matrix.CreateLookAt(Position, Target, UpVector);
             }
         }
@@ -37,7 +34,6 @@ namespace space_prototype.Entities
             get
             {
                 var aspectRatio = _graphicsDevice.DisplayMode.AspectRatio;
-
                 return Matrix.CreatePerspectiveFieldOfView(FieldOfView, aspectRatio, NearClipPlane, FarClipPlane);
             }
         }

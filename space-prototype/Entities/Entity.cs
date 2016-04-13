@@ -7,11 +7,9 @@ namespace space_prototype.Entities
     public abstract class Entity
     {
         private Model _model;
-
         private float _rotation;
 
-        private Matrix _rotationMatrix = Matrix.Identity;
-
+        public Matrix RotationMatrix = Matrix.Identity;
         public Vector3 Position = Vector3.Zero;
 
         public float Rotation
@@ -52,7 +50,7 @@ namespace space_prototype.Entities
                     //TODO hacked upvector
                     effect.EnableDefaultLighting();
                     effect.PreferPerPixelLighting = true;
-                    effect.World = _rotationMatrix*Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitZ);
+                    effect.World = RotationMatrix*Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitZ);
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;
                 }
@@ -63,7 +61,7 @@ namespace space_prototype.Entities
 
         public void RotateY()
         {
-            _rotationMatrix = Matrix.CreateRotationX(MathHelper.PiOver2)*Matrix.CreateRotationY(_rotation);
+            RotationMatrix = Matrix.CreateRotationX(MathHelper.PiOver2)*Matrix.CreateRotationY(_rotation);
         }
     }
 }
