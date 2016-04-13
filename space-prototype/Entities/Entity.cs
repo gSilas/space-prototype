@@ -50,7 +50,7 @@ namespace space_prototype.Entities
                     //TODO hacked upvector
                     effect.EnableDefaultLighting();
                     effect.PreferPerPixelLighting = true;
-                    effect.World = RotationMatrix*Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitY);
+                    effect.World = RotationMatrix*Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitZ);
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;
                 }
@@ -61,8 +61,7 @@ namespace space_prototype.Entities
 
         public void RotateY()
         {
-            RotationMatrix = Matrix.CreateFromAxisAngle(Vector3.UnitY, _rotation);
-            
+            RotationMatrix = Matrix.CreateRotationX(MathHelper.PiOver2)*Matrix.CreateRotationY(_rotation);
         }
     }
 }
