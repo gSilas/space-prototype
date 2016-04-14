@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace space_prototype.Entities
+﻿namespace space_prototype.Entities
 {
-    class Projectile
+    internal class Projectile
     {
         //TODO add basic projectile + model (missile)
     }

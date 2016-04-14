@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -137,7 +136,8 @@ namespace space_prototype
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Move around with W (Up) and S (Down) \n and JKLIUO for Camera!", new Vector2(50, 0),
+            spriteBatch.DrawString(motorwerk, "Move around with W (Up) and S (Down) \n and JKLIUO for Camera!",
+                new Vector2(50, 0),
                 Color.LightGoldenrodYellow);
             spriteBatch.End();
             base.Draw(gameTime);

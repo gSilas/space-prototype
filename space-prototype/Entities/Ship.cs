@@ -11,13 +11,28 @@ namespace space_prototype.Entities
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 Position = CheckWithinBounds(Position + new Vector3(0f, 0f, 1f));
-                RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(-10f));
+                if (Position.Z > 10)
+                {
+                    RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(-10f));
+                }
+                else
+                {
+                    RotationMatrix = Matrix.Identity;
+                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 Position = CheckWithinBounds(Position + new Vector3(0f, 0f, -1f));
-                RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(10f));
+                if (Position.Z < -10)
+                {
+                    RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(10f));
+                    ;
+                }
+                else
+                {
+                    RotationMatrix = Matrix.Identity;
+                }
             }
             //this.RotationMatrix = Matrix.Identity;
         }
