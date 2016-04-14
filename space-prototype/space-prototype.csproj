@@ -43,6 +43,7 @@
     <Compile Include="Entities\BoxCollider3D.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Gameboard.cs" />
+    <Compile Include="Entities\GameState.cs" />
     <Compile Include="Entities\Projectile.cs" />
     <Compile Include="Entities\Ship.cs" />
     <Compile Include="Game1.cs" />

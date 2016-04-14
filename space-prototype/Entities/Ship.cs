@@ -34,7 +34,6 @@ namespace space_prototype.Entities
                     RotationMatrix = Matrix.Identity;
                 }
             }
-            //this.RotationMatrix = Matrix.Identity;
         }
 
         private Vector3 CheckWithinBounds(Vector3 v)
