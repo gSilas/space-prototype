@@ -128,7 +128,7 @@ namespace space_prototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             //3D stuff
             plane.Draw(camera);
@@ -137,7 +137,7 @@ namespace space_prototype
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Move around with W (Up) and S (Down)!", new Vector2(50, 0),
+            spriteBatch.DrawString(motorwerk, "Move around with W (Up) and S (Down) \n and JKLIUO for Camera!", new Vector2(50, 0),
                 Color.LightGoldenrodYellow);
             spriteBatch.End();
             base.Draw(gameTime);

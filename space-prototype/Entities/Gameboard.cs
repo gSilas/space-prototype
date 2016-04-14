@@ -20,7 +20,7 @@ namespace space_prototype.Entities
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.Alpha = 0.7f;
+                    effect.Alpha = 1f;
                     effect.World = Matrix.CreateWorld(_position, Vector3.UnitX, Vector3.UnitY);
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;
