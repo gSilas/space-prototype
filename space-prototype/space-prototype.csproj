@@ -41,11 +41,16 @@
     <Compile Include="Entities\Asteroid.cs" />
     <Compile Include="Entities\AsteroidField.cs" />
     <Compile Include="Entities\BoxCollider3D.cs" />
+    <Compile Include="GameStates\Credits.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Gameboard.cs" />
-    <Compile Include="Entities\GameState.cs" />
+    <Compile Include="GameStates\GameOverScreen.cs" />
+    <Compile Include="GameStates\GameState.cs" />
+    <Compile Include="GameStates\MainGame.cs" />
+    <Compile Include="GameStates\MainMenu.cs" />
     <Compile Include="Entities\Projectile.cs" />
     <Compile Include="Entities\Ship.cs" />
+    <Compile Include="GameStates\WinScreen.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
