@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace space_prototype.Entities
 {
     public class Camera
     {
-        private readonly GraphicsDevice _graphicsDevice;
         public float FarClipPlane;
         public float FieldOfView;
         public float NearClipPlane;
@@ -14,11 +12,6 @@ namespace space_prototype.Entities
         public Vector3 Position;
         public Vector3 Target;
         public Vector3 UpVector;
-
-        public Camera(GraphicsDevice graphicsDevice)
-        {
-            _graphicsDevice = graphicsDevice;
-        }
 
         public Matrix ViewMatrix
         {
@@ -29,7 +22,7 @@ namespace space_prototype.Entities
         {
             get
             {
-                var aspectRatio = _graphicsDevice.DisplayMode.AspectRatio;
+                var aspectRatio = Game1.Graphics.GraphicsDevice.DisplayMode.AspectRatio;
                 return Matrix.CreatePerspectiveFieldOfView(FieldOfView, aspectRatio, NearClipPlane, FarClipPlane);
             }
         }
