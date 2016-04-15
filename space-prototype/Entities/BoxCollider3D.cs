@@ -7,6 +7,11 @@ namespace space_prototype.Entities
     {
         private BoundingBox _box;
 
+        public BoundingBox Box
+        {
+            get { return _box; }
+        }
+
         public BoxCollider3D(Model model)
         {
             _box = GenerateBoundingBox(model);
