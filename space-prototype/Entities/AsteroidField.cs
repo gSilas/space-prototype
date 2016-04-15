@@ -28,7 +28,7 @@ namespace space_prototype.Entities
         {
             foreach (var asteroid in asteroidList)
             {
-                asteroid.Initialize(content, "models/asteroid");
+                asteroid.Initialize(content, "models/asteroid2");
             }
         }
 

@@ -24,7 +24,7 @@ namespace space_prototype
         private Song mainSong;
 
         //Visual components
-        private SpriteFont motorwerk;
+        private SpriteFont BebasNeue;
         private Gameboard plane;
         private Ship ship;
         private SpriteBatch spriteBatch;
@@ -77,10 +77,10 @@ namespace space_prototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //Audio
-            mainSong = Content.Load<Song>("Audio/mainTheme");
+            //mainSong = Content.Load<Song>("Audio/mainTheme");
 
             //Fonts
-            motorwerk = Content.Load<SpriteFont>("Fonts/motorwerk");
+            BebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
 
             //Models
             asteroidField.Initialize(Content);
@@ -88,8 +88,8 @@ namespace space_prototype
             ship.Initialize(Content, "models/spaceship");
 
             //Start Audio
-            MediaPlayer.Play(mainSong);
-            MediaPlayer.Volume = 0.1f;
+            //MediaPlayer.Play(mainSong);
+            //MediaPlayer.Volume = 0.1f;
         }
 
         /// <summary>
@@ -136,9 +136,7 @@ namespace space_prototype
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
-            spriteBatch.DrawString(motorwerk, "Move around with W (Up) and S (Down) \n and JKLIUO for Camera!",
-                new Vector2(50, 0),
-                Color.LightGoldenrodYellow);
+            spriteBatch.DrawString(BebasNeue, "Move around with W (Up) and S (Down) \n and JKLIUO for Camera!",new Vector2(50, 0),Color.LightGoldenrodYellow);
             spriteBatch.End();
             base.Draw(gameTime);
         }

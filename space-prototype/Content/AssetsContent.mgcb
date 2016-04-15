@@ -13,11 +13,11 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Fonts/motorwerk.spritefont
+#begin Fonts/BebasNeue.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
-/build:Fonts/motorwerk.spritefont
+/build:Fonts/BebasNeue.spritefont
 
 #begin Audio/mainTheme.mp3
 /importer:Mp3Importer
