@@ -52,7 +52,7 @@ namespace space_prototype
             camera.Position = new Vector3(0, 100, 0);
             camera.Target = Vector3.Zero;
             camera.UpVector = Vector3.UnitZ;
-            camera.FieldOfView = MathHelper.PiOver4;
+            camera.FieldOfView = MathHelper.PiOver2;
             camera.NearClipPlane = 0.1f;
             camera.FarClipPlane = 10000f;
 
@@ -77,7 +77,7 @@ namespace space_prototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //Audio
-            //mainSong = Content.Load<Song>("Audio/mainTheme");
+            mainSong = Content.Load<Song>("Audio/n-Dimensions");
 
             //Fonts
             BebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
@@ -88,8 +88,8 @@ namespace space_prototype
             ship.Initialize(Content, "models/spaceship");
 
             //Start Audio
-            //MediaPlayer.Play(mainSong);
-            //MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Play(mainSong);
+            MediaPlayer.Volume = 0.1f;
         }
 
         /// <summary>
@@ -128,6 +128,7 @@ namespace space_prototype
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
             //3D stuff
             plane.Draw(camera);

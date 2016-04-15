@@ -19,12 +19,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/BebasNeue.spritefont
 
-#begin Audio/mainTheme.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/mainTheme.mp3
-
 #begin Models/texture.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -148,4 +142,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Models/asteroid2_texture.png
+
+#begin Audio/n-Dimensions.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/n-Dimensions.mp3
 
