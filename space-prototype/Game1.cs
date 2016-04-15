@@ -136,7 +136,7 @@ namespace space_prototype
 
             //2D SpriteBatch stuff
             spriteBatch.Begin();
-            spriteBatch.DrawString(BebasNeue, "Move around with W (Up) and S (Down) \n and JKLIUO for Camera!",new Vector2(50, 0),Color.LightGoldenrodYellow);
+            spriteBatch.DrawString(BebasNeue, "Move around with W (Up) and S (Down) and JKLIUO for Camera!",new Vector2(50, 0),Color.LightGoldenrodYellow);
             spriteBatch.End();
             base.Draw(gameTime);
         }
