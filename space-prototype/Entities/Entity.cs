@@ -6,7 +6,6 @@ namespace space_prototype.Entities
 {
     public abstract class Entity
     {
-        private Model _model;
         private float _rotation;
         public Vector3 Position = Vector3.Zero;
 
@@ -34,16 +33,18 @@ namespace space_prototype.Entities
             }
         }
 
-        public void Initialize(ContentManager contentManager, string name)
+        public Model Model { get; private set; }
+
+        public void LoadContent(ContentManager contentManager, string name)
         {
-            _model = contentManager.Load<Model>(name);
+            Model = contentManager.Load<Model>(name);
         }
 
         public abstract void Update(GameTime gameTime);
 
         public void Draw(Camera camera)
         {
-            foreach (var mesh in _model.Meshes)
+            foreach (var mesh in Model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
@@ -53,7 +54,6 @@ namespace space_prototype.Entities
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;
                 }
-
                 mesh.Draw();
             }
         }

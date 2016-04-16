@@ -37,7 +37,8 @@ namespace space_prototype.GameStates
             plane = new Gameboard();
 
             //Entites
-            asteroidField = new AsteroidField(10);
+            asteroidField = new AsteroidField(50);
+            asteroidField.Initialize();
             ship = new Ship();
             ship.Position = new Vector3(52, 20, 0);
         }
@@ -51,9 +52,9 @@ namespace space_prototype.GameStates
             BebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
 
             //Models
-            asteroidField.Initialize(Content);
-            plane.Initialize(Content, "models/bgplane");
-            ship.Initialize(Content, "models/spaceship");
+            asteroidField.LoadContent(Content);
+            plane.LoadContent(Content, "models/bgplane");
+            ship.LoadContent(Content, "models/spaceship");
 
             //Start Audio
             MediaPlayer.Play(mainSong);

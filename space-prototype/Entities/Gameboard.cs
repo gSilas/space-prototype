@@ -9,7 +9,7 @@ namespace space_prototype.Entities
         private readonly Vector3 _position = new Vector3(0, 0, 0);
         private Model _model;
 
-        public void Initialize(ContentManager contentManager, string name)
+        public void LoadContent(ContentManager contentManager, string name)
         {
             _model = contentManager.Load<Model>(name);
         }
