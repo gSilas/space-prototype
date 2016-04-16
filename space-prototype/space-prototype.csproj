@@ -45,7 +45,6 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Gameboard.cs" />
     <Compile Include="GameStates\GameOverScreen.cs" />
-    <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\MainGame.cs" />
     <Compile Include="GameStates\MainMenu.cs" />
     <Compile Include="Entities\Projectile.cs" />
@@ -55,6 +54,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Camera.cs" />
+    <Compile Include="UI\Button.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

@@ -7,10 +7,10 @@ namespace space_prototype.Entities
 {
     internal class AsteroidField
     {
-        private readonly Random _random = new Random();
         private readonly List<Asteroid> _asteroidList;
-        private int _size;
         private readonly Collider3D _collider = new Collider3D();
+        private readonly Random _random = new Random();
+        private readonly int _size;
 
         public AsteroidField(int size)
         {
@@ -23,7 +23,6 @@ namespace space_prototype.Entities
 
             var vec = new Vector3(rx, ry, rz);
             var a = new Asteroid(vec);
-
         }
 
         public void Initialize()
@@ -43,7 +42,7 @@ namespace space_prototype.Entities
         {
             //TODO maybe clean this up maybe not
 
-            List<Asteroid> removeList = new List<Asteroid>();
+            var removeList = new List<Asteroid>();
 
             foreach (var asteroid in _asteroidList)
             {
@@ -53,7 +52,6 @@ namespace space_prototype.Entities
             {
                 foreach (var ast in _asteroidList)
                 {
-
                     if (_collider.Intersection(asteroid, ast) && !ast.Equals(asteroid))
                     {
                         removeList.Add(ast);

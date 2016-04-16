@@ -10,11 +10,22 @@ namespace space_prototype
     /// </summary>
     public class Game1 : Game
     {
+        public enum Gamestates
+        {
+            MainMenu,
+            Game,
+            GameOver,
+            Win,
+            Credits
+        }
+
         //Render stuff
         public static GraphicsDeviceManager Graphics;
-
-        public GameState CurrGameState = new MainGame();
         private SpriteBatch spriteBatch;
+
+        //Gamestate
+        public static GameState CurrGameState = new MainMenu();
+        
 
         public Game1()
         {
@@ -38,7 +49,7 @@ namespace space_prototype
             Window.AllowAltF4 = true;
 
             CurrGameState.Initialize();
-
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -91,12 +102,26 @@ namespace space_prototype
             base.Draw(gameTime);
         }
 
-        private enum Gamestates
+        public static void NextGameState(Gamestates target)
         {
-            MainMenu,
-            Game,
-            GameOver,
-            Win
+            switch (target)
+            {
+                case Gamestates.MainMenu:
+                    CurrGameState = new MainMenu();
+                    break;
+                case Gamestates.Game:
+                    CurrGameState = new MainGame();
+                    break;
+                case Gamestates.GameOver:
+                    CurrGameState = new GameOverScreen();
+                    break;
+                case Gamestates.Win:
+                    CurrGameState = new WinScreen();
+                    break;
+                case Gamestates.Credits:
+                    CurrGameState = new Credits();
+                    break;
+            }
         }
     }
 }

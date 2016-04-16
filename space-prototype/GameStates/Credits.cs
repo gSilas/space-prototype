@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace space_prototype.GameStates
 {
-    public class Credits : GameState
+    public class Credits : Game
     {
         public override void Draw(GraphicsDeviceManager graphics, SpriteBatch spriteBatch)
         {
