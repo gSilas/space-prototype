@@ -37,7 +37,7 @@ namespace space_prototype.GameStates
             plane = new Gameboard();
 
             //Entites
-            asteroidField = new AsteroidField(50);
+            asteroidField = new AsteroidField(100);
             asteroidField.Initialize();
             ship = new Ship();
             ship.Position = new Vector3(52, 20, 0);
