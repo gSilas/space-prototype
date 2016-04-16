@@ -33,7 +33,7 @@ namespace space_prototype.Entities
             }
         }
 
-        public Model Model { get; private set; }
+        public Model Model { get; set; }
 
         public void LoadContent(ContentManager contentManager, string name)
         {

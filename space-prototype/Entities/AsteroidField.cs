@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace space_prototype.Entities
 {
@@ -44,10 +45,16 @@ namespace space_prototype.Entities
 
             var removeList = new List<Asteroid>();
 
-            foreach (var asteroid in _asteroidList)
+            for(int i = 0;i < _asteroidList.Count; i++)
             {
-                asteroid.LoadContent(content, "models/asteroid2");
+                if (i%2 == 0)
+                {
+                    _asteroidList[i].Model = content.Load<Model>("Models/asteroid");
+                }
+                else
+                    _asteroidList[i].Model = content.Load<Model>("Models/asteroid2");
             }
+
             foreach (var asteroid in _asteroidList)
             {
                 foreach (var ast in _asteroidList)
