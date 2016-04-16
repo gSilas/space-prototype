@@ -50,9 +50,9 @@ namespace space_prototype.GameStates
         {
             //Fonts
             BebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
-            _button1 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
-            _button2 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
-            _button3 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
+            _button1 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
+            _button2 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
+            _button3 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
             _button1.Position = new Vector2(300, 100);
             _button2.Position = new Vector2(300, 200);
             _button3.Position = new Vector2(300, 300);
