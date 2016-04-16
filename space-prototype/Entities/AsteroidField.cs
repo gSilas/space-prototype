@@ -45,7 +45,7 @@ namespace space_prototype.Entities
 
             var removeList = new List<Asteroid>();
 
-            for(int i = 0;i < _asteroidList.Count; i++)
+            for (var i = 0; i < _asteroidList.Count; i++)
             {
                 if (i%2 == 0)
                 {

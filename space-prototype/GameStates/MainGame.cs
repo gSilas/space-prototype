@@ -83,7 +83,7 @@ namespace space_prototype.GameStates
                 Exit();
                 Program.NextGameState(Program.Gamestates.MainMenu);
             }
-              
+
             camera.Update(gameTime);
             asteroidField.Update(gameTime);
             ship.Update(gameTime);
