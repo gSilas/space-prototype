@@ -6,12 +6,12 @@ namespace space_prototype.UI
 {
     public class Button
     {
-        private Texture2D _button_notselected;
-        private Texture2D _button_selected;
+        private readonly Texture2D _button_notselected;
+        private readonly Texture2D _button_selected;
+        public string ButtonText;
 
         public Vector2 Position;
         public Texture2D TButton;
-        public string ButtonText;
 
         public Button(Texture2D selected, Texture2D deselected)
         {
@@ -32,17 +32,14 @@ namespace space_prototype.UI
 
         public bool CursorOnButton(Vector2 cursor)
         {
-            Rectangle rect = new Rectangle((int)Position.X,(int)Position.Y, TButton.Bounds.Width, TButton.Bounds.Height);
+            var rect = new Rectangle((int) Position.X, (int) Position.Y, TButton.Bounds.Width, TButton.Bounds.Height);
             Console.WriteLine(rect.ToString());
             Console.WriteLine(cursor.ToString());
             if (rect.Contains(cursor))
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

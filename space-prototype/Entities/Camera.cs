@@ -5,6 +5,7 @@ namespace space_prototype.Entities
 {
     public class Camera
     {
+        public float AspectRatio;
         public float FarClipPlane;
         public float FieldOfView;
         public float NearClipPlane;
@@ -20,11 +21,7 @@ namespace space_prototype.Entities
 
         public Matrix ProjectionMatrix
         {
-            get
-            {
-                var aspectRatio = Game1.Graphics.GraphicsDevice.DisplayMode.AspectRatio;
-                return Matrix.CreatePerspectiveFieldOfView(FieldOfView, aspectRatio, NearClipPlane, FarClipPlane);
-            }
+            get { return Matrix.CreatePerspectiveFieldOfView(FieldOfView, AspectRatio, NearClipPlane, FarClipPlane); }
         }
 
         public void Update(GameTime gameTime)

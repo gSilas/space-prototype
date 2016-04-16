@@ -1,51 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using space_prototype.UI;
 
 namespace space_prototype.GameStates
 {
-    public class MainMenu : GameState
+    public class MainMenu : Game
     {
         //Buttons
         private Button _button1;
         private Button _button2;
         private Button _button3;
 
-        private List<Button> _buttonList; 
+        private List<Button> _buttonList;
+
+        //Render
+        private GraphicsDeviceManager _graphics;
 
         private Vector2 _mouseposition;
+        private SpriteBatch _spriteBatch;
 
         //Visual components
         private SpriteFont BebasNeue;
 
-        //TODO UI
-        public override void Initialize()
+        public MainMenu()
         {
-            _buttonList = new List<Button>();
-            
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
         }
 
-        public override void LoadContent(ContentManager content)
+        //TODO UI
+        protected override void Initialize()
+        {
+            //2D spritebatch
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //Window
+            Window.Title = "3D Space Prototype";
+            Window.AllowAltF4 = true;
+            IsMouseVisible = true;
+
+            _buttonList = new List<Button>();
+
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
         {
             //Fonts
-            BebasNeue = content.Load<SpriteFont>("Fonts/bebasneue");
-            _button1 = new Button(content.Load<Texture2D>("UI/red_button02"),content.Load<Texture2D>("UI/red_button01"));
-            _button2 = new Button(content.Load<Texture2D>("UI/red_button02"),content.Load<Texture2D>("UI/red_button01"));
+            BebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
+            _button1 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
+            _button2 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
+            _button3 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
             _button1.Position = new Vector2(300, 100);
             _button2.Position = new Vector2(300, 200);
+            _button3.Position = new Vector2(300, 300);
             _button1.ButtonText = "Play";
             _button2.ButtonText = "Credits";
+            _button3.ButtonText = "End";
             _buttonList.Add(_button1);
             _buttonList.Add(_button2);
+            _buttonList.Add(_button3);
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
-            MouseState state = Mouse.GetState();
+            var state = Mouse.GetState();
             _mouseposition.X = state.X;
             _mouseposition.Y = state.Y;
 
@@ -58,11 +79,15 @@ namespace space_prototype.GameStates
                         button.Select();
                         if (button.ButtonText == "Play")
                         {
-                            Game1.NextGameState(Game1.Gamestates.Game);
+                            Program.NextGameState(Program.Gamestates.Game);
                         }
                         else if (button.ButtonText == "Credits")
                         {
-                            Game1.NextGameState(Game1.Gamestates.Credits);
+                            Program.NextGameState(Program.Gamestates.Credits);
+                        }
+                        else if (button.ButtonText == "End")
+                        {
+                            Exit();
                         }
                     }
                     else
@@ -71,17 +96,24 @@ namespace space_prototype.GameStates
                     }
                 }
             }
+
+            base.Update(gameTime);
         }
 
-        public override void Draw(GraphicsDeviceManager graphics, SpriteBatch spriteBatch)
+        protected override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            _spriteBatch.Begin();
             foreach (var button in _buttonList)
             {
-                spriteBatch.Draw(button.TButton, button.Position);
-                spriteBatch.DrawString(BebasNeue, button.ButtonText, new Vector2(button.Position.X, button.Position.Y), Color.LightGoldenrodYellow);
+                _spriteBatch.Draw(button.TButton, button.Position);
+                _spriteBatch.DrawString(BebasNeue, button.ButtonText, new Vector2(button.Position.X, button.Position.Y),
+                    Color.LightGoldenrodYellow);
             }
-            spriteBatch.End();
+            _spriteBatch.End();
+
+            base.Draw(gameTime);
         }
     }
 }

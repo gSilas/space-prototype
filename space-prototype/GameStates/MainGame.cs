@@ -1,13 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using space_prototype.Entities;
 
 namespace space_prototype.GameStates
 {
-    public class MainGame : GameState
+    public class MainGame : Game
     {
+        //Render
+        private readonly GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
         //3D Models
         private AsteroidField asteroidField;
 
@@ -22,8 +25,17 @@ namespace space_prototype.GameStates
         private Gameboard plane;
         private Ship ship;
 
-        public override void Initialize()
+        public MainGame()
         {
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+        }
+
+        protected override void Initialize()
+        {
+            //2D spritebatch
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
             //Camera
             camera = new Camera();
             camera.Position = new Vector3(0, 100, 0);
@@ -32,6 +44,7 @@ namespace space_prototype.GameStates
             camera.FieldOfView = MathHelper.PiOver2;
             camera.NearClipPlane = 0.1f;
             camera.FarClipPlane = 10000f;
+            camera.AspectRatio = _graphics.GraphicsDevice.DisplayMode.AspectRatio;
 
             //Plane
             plane = new Gameboard();
@@ -41,9 +54,11 @@ namespace space_prototype.GameStates
             asteroidField.Initialize();
             ship = new Ship();
             ship.Position = new Vector3(52, 20, 0);
+
+            base.Initialize();
         }
 
-        public override void LoadContent(ContentManager Content)
+        protected override void LoadContent()
         {
             //Audio
             mainSong = Content.Load<Song>("Audio/n-Dimensions");
@@ -61,25 +76,38 @@ namespace space_prototype.GameStates
             MediaPlayer.Volume = 0.1f;
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                Exit();
+                Program.NextGameState(Program.Gamestates.MainMenu);
+            }
+              
             camera.Update(gameTime);
             asteroidField.Update(gameTime);
             ship.Update(gameTime);
+
+            base.Update(gameTime);
         }
 
-        public override void Draw(GraphicsDeviceManager graphics, SpriteBatch spriteBatch)
+        protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
             //3D stuff
             plane.Draw(camera);
             ship.Draw(camera);
             asteroidField.Draw(camera);
 
             //2D SpriteBatch stuff
-            spriteBatch.Begin();
-            spriteBatch.DrawString(BebasNeue, "Move around with W (Up) and S (Down) and JKLIUO for Camera!",
+            _spriteBatch.Begin();
+            _spriteBatch.DrawString(BebasNeue, "Move around with W (Up) and S (Down) and JKLIUO for Camera!",
                 new Vector2(50, 0), Color.LightGoldenrodYellow);
-            spriteBatch.End();
+            _spriteBatch.End();
+
+            base.Draw(gameTime);
         }
     }
 }

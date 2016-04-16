@@ -1,30 +1,50 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace space_prototype.GameStates
 {
-    public class WinScreen : GameState
+    public class WinScreen : Game
     {
-        public override void Draw(GraphicsDeviceManager graphics, SpriteBatch spriteBatch)
+        //Render
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+
+        public WinScreen()
+        {
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+
+            base.Draw(gameTime);
+        }
+
+        protected override void Initialize()
+        {
+            //2D spritebatch
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //Window
+            Window.Title = "3D Space Prototype";
+            Window.AllowAltF4 = true;
+
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
         {
             throw new NotImplementedException();
         }
 
-        public override void Initialize()
+        protected override void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
-        }
 
-        public override void LoadContent(ContentManager content)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
+            base.Update(gameTime);
         }
     }
 }
