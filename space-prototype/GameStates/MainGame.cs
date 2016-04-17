@@ -31,6 +31,11 @@ namespace space_prototype.GameStates
             Content.RootDirectory = "Content";
         }
 
+        protected override void UnloadContent()
+        {
+            Content.Unload();
+        }
+
         protected override void Initialize()
         {
             //2D spritebatch

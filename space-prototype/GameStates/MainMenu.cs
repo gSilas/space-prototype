@@ -46,6 +46,11 @@ namespace space_prototype.GameStates
             base.Initialize();
         }
 
+        protected override void UnloadContent()
+        {
+            Content.Unload();
+        }
+
         protected override void LoadContent()
         {
             //Fonts

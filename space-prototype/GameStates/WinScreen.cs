@@ -23,6 +23,11 @@ namespace space_prototype.GameStates
             base.Draw(gameTime);
         }
 
+        protected override void UnloadContent()
+        {
+            Content.Unload();
+        }
+
         protected override void Initialize()
         {
             //2D spritebatch
