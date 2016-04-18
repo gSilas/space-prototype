@@ -22,13 +22,12 @@ namespace space_prototype
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
-        private static Game _game;
 
         [STAThread]
         private static void Main()
         {
-            _game = new MainMenu();
-            _game.Run();
+            using (var game = new Controller())
+            game.Run();
         }
 
         public static void NextGameState(Gamestates target)

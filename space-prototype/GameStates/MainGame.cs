@@ -66,7 +66,7 @@ namespace space_prototype.GameStates
         protected override void LoadContent()
         {
             //Audio
-            mainSong = Content.Load<Song>("Audio/n-Dimensions");
+            //mainSong = Content.Load<Song>("Audio/n-Dimensions");
 
             //Fonts
             BebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
@@ -77,8 +77,8 @@ namespace space_prototype.GameStates
             ship.LoadContent(Content, "models/spaceship");
 
             //Start Audio
-            MediaPlayer.Play(mainSong);
-            MediaPlayer.Volume = 0.1f;
+            //MediaPlayer.Play(mainSong);
+            //MediaPlayer.Volume = 0.1f;
         }
 
         protected override void Update(GameTime gameTime)

@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controller.cs" />
     <Compile Include="Entities\Asteroid.cs" />
     <Compile Include="Entities\AsteroidField.cs" />
     <Compile Include="Entities\Collider3D.cs" />
@@ -45,6 +46,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Gameboard.cs" />
     <Compile Include="GameStates\GameOverScreen.cs" />
+    <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\MainGame.cs" />
     <Compile Include="GameStates\MainMenu.cs" />
     <Compile Include="Entities\Projectile.cs" />
