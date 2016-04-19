@@ -66,7 +66,7 @@ namespace space_prototype
             _button3.Position = new Vector2(300, 300);
             _button1.ButtonText = "Play";
             _button2.ButtonText = "Credits";
-            _button3.ButtonText = "End";
+            _button3.ButtonText = "Restart";
             _buttonList.Add(_button1);
             _buttonList.Add(_button2);
             _buttonList.Add(_button3);
@@ -127,6 +127,22 @@ namespace space_prototype
             SpriteBatch.End();
         }
 
+        public void Restart()
+        {
+            _camera.Position = new Vector3(0, 100, 0);
+            _camera.Target = Vector3.Zero;
+            _camera.UpVector = Vector3.UnitZ;
+            _camera.FieldOfView = MathHelper.PiOver2;
+            _camera.NearClipPlane = 0.1f;
+            _camera.FarClipPlane = 10000f;
+            _camera.AspectRatio = Graphics.GraphicsDevice.DisplayMode.AspectRatio;
+            _plane.Position = Vector3.Zero;
+            _asteroidField.Initialize();
+            _asteroidField.LoadContent(Content);
+            _ship.Position = new Vector3(52, 20, 0);
+            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
+        }
+
         public void NextGameState(GameStates target)
         {
             switch (target)
@@ -144,7 +160,7 @@ namespace space_prototype
                     CurrentGameState = new WinScreen(this);
                     break;
                 case GameStates.Credits:
-                    CurrentGameState = new Credits(this);
+                    CurrentGameState = new Credits(this, _bebasNeue);
                     break;
             }
         }

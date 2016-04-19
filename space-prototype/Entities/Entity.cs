@@ -16,20 +16,15 @@ namespace space_prototype.Entities
             get { return _rotation; }
             set
             {
-                var newVal = value;
-
-                while (newVal < 0)
+                while (value < 0)
                 {
-                    newVal += MathHelper.TwoPi;
+                    value += MathHelper.TwoPi;
                 }
-                while (newVal >= MathHelper.TwoPi)
+                while (value >= MathHelper.TwoPi)
                 {
-                    newVal -= MathHelper.TwoPi;
+                    value -= MathHelper.TwoPi;
                 }
-                if (_rotation != newVal)
-                {
-                    _rotation = newVal;
-                }
+                _rotation = value;
             }
         }
 

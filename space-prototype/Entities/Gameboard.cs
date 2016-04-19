@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace space_prototype.Entities
 {
     public class Gameboard : Entity
     {
-
         public override void Draw(Camera camera)
         {
             foreach (var mesh in Model.Meshes)

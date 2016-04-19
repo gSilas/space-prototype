@@ -41,8 +41,9 @@ namespace space_prototype.GameStates
                         {
                             _manager.NextGameState(GameStateManager.GameStates.Credits);
                         }
-                        else if (button.ButtonText == "End")
+                        else if (button.ButtonText == "Restart")
                         {
+                            _manager.Restart();
                         }
                     }
                     else

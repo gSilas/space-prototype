@@ -10,7 +10,7 @@ namespace space_prototype
     {
         /// <summary>
         ///     The main entry point for the application.
-        /// </summary>
+        /// </summary
         [STAThread]
         private static void Main()
         {

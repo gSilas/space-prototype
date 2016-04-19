@@ -9,7 +9,6 @@ namespace space_prototype.Entities
     internal class AsteroidField : Entity
     {
         private readonly List<Asteroid> _asteroidList;
-        private readonly Collider3D _collider = new Collider3D();
         private readonly Random _random = new Random();
         private readonly int _size;
 
@@ -59,7 +58,7 @@ namespace space_prototype.Entities
             {
                 foreach (var ast in _asteroidList)
                 {
-                    if (_collider.Intersection(asteroid, ast) && !ast.Equals(asteroid))
+                    if (Collider3D.Intersection(asteroid, ast) && !ast.Equals(asteroid))
                     {
                         removeList.Add(ast);
                         Console.WriteLine("Success!");
@@ -70,7 +69,6 @@ namespace space_prototype.Entities
             {
                 _asteroidList.Remove(asteroid);
             }
-            removeList = null;
         }
 
         public override void Update(GameTime gameTime)

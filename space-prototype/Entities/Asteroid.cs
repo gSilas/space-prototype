@@ -5,8 +5,6 @@ namespace space_prototype.Entities
 {
     public class Asteroid : Entity
     {
-        private Random rand = new Random();
-
         public Asteroid(Vector3 position)
         {
             Position = position;
