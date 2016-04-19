@@ -108,7 +108,7 @@ namespace space_prototype
             _camera.AspectRatio = Graphics.GraphicsDevice.DisplayMode.AspectRatio;
             _plane = new Gameboard();
             _plane.Position = Vector3.Zero;
-            _asteroidField = new AsteroidField(60,Content);
+            _asteroidField = new AsteroidField(60, Content);
             _asteroidField.Initialize();
             _ship = new Ship();
             _ship.Position = new Vector3(95, 20, 0);

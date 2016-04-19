@@ -8,11 +8,11 @@ namespace space_prototype.Entities
 {
     internal class AsteroidField : Entity
     {
-        private Rectangle _rektangle;
         private readonly List<Asteroid> _asteroidList;
         private readonly Random _random = new Random();
         private readonly int _size;
-        private ContentManager _content;
+        private readonly ContentManager _content;
+        private Rectangle _rektangle;
 
         public AsteroidField(int size, ContentManager content)
         {
@@ -33,7 +33,7 @@ namespace space_prototype.Entities
         {
             for (var i = 0; i < _size; i++)
             {
-                var rx = _random.Next(-200,-100);
+                var rx = _random.Next(-200, -100);
                 var rz = _random.Next(-100, 100);
 
                 var vec = new Vector3(rx, 20, rz);
@@ -47,7 +47,7 @@ namespace space_prototype.Entities
             var addList = new List<Asteroid>();
             var removeList = new List<Asteroid>();
 
-            for (int i = 0; i < 20; i++)
+            for (var i = 0; i < 20; i++)
             {
                 var rx = _random.Next(-200, -150);
                 var rz = _random.Next(-100, 100);
@@ -71,7 +71,7 @@ namespace space_prototype.Entities
             {
                 foreach (var ast in _asteroidList)
                 {
-                    if (Collider3D.Intersection(asteroid, ast) && !ast.Equals(asteroid))
+                    if (!ast.Equals(asteroid) && Collider3D.Intersection(asteroid, ast))
                     {
                         removeList.Add(ast);
                     }
@@ -104,7 +104,7 @@ namespace space_prototype.Entities
             {
                 foreach (var ast in _asteroidList)
                 {
-                    if (Collider3D.Intersection(asteroid, ast) && !ast.Equals(asteroid))
+                    if (!ast.Equals(asteroid) && Collider3D.Intersection(asteroid, ast))
                     {
                         removeList.Add(ast);
                     }
@@ -141,8 +141,8 @@ namespace space_prototype.Entities
             {
                 _asteroidList.Remove(asteroid);
             }
-            if(gameTime.TotalGameTime.Milliseconds % 60000 == 0)
-                    InitializeChunk();
+            if (gameTime.TotalGameTime.Milliseconds%60000 == 0)
+                InitializeChunk();
         }
 
         public override void Draw(Camera camera)
