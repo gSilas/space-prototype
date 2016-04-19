@@ -9,6 +9,7 @@ namespace space_prototype.Entities
     internal class AsteroidField : Entity
     {
         private readonly List<Asteroid> _asteroidList;
+        private readonly List<Asteroid> _addList;
         private readonly Random _random = new Random();
         private readonly int _size;
         private ContentManager _content;
@@ -17,6 +18,7 @@ namespace space_prototype.Entities
         {
             //TODO make them stay true to size
             _asteroidList = new List<Asteroid>();
+            _addList = new List<Asteroid>();
             _size = size;
             _content = content;
             var rx = _random.Next(-100, 100);
@@ -31,7 +33,7 @@ namespace space_prototype.Entities
         {
             for (var i = 0; i < _size; i++)
             {
-                var rx = _random.Next(-300, -200);
+                var rx = _random.Next(-200,-100);
                 var rz = _random.Next(-100, 100);
 
                 var vec = new Vector3(rx, 20, rz);
@@ -42,12 +44,13 @@ namespace space_prototype.Entities
 
         private void InitializeOne()
         {
-            var rx = _random.Next(-150, -100);
+            var rx = _random.Next(-200, -150);
             var rz = _random.Next(-100, 100);
             var r = _random.Next(-100, 100);
 
             var vec = new Vector3(rx, 20, rz);
             var a = new Asteroid(vec);
+
             if (r < 0)
             {
                 a.Model = _content.Load<Model>("Models/asteroid");
@@ -56,7 +59,7 @@ namespace space_prototype.Entities
             {
                 a.Model = _content.Load<Model>("Models/asteroid2");
             }
-            _asteroidList.Add(a);
+            _addList.Add(a);
         }
 
         public void LoadContent()
@@ -95,30 +98,46 @@ namespace space_prototype.Entities
         public override void Update(GameTime gameTime)
         {
             var removeList = new List<Asteroid>();
-            var count = 0;
+            var removeList2 = new List<Asteroid>();
             foreach (var asteroid in _asteroidList)
             {
                 asteroid.Update(gameTime);
             }
             foreach (var asteroid in _asteroidList)
             {
-                if (asteroid.Position.X > 100)
+                if (asteroid.Position.X > 200)
                 {
                     removeList.Add(asteroid);
-                }
-                if (asteroid.Position.X > -90)
-                {
-                    count++;
                 }
             }
             foreach (var asteroid in removeList)
             {
                 _asteroidList.Remove(asteroid);
             }
-            for ( int i = 0; i < count; i++)
+            if (_addList.Count <= 10)
             {
-                    InitializeOne();
+                InitializeOne();
+            }
+            else if (_addList.Count > 10)
+            {
+                foreach (var asteroid in _addList)
+                {
+                    foreach (var ast in _addList)
+                    {
+                        if (Collider3D.Intersection(asteroid, ast) && !ast.Equals(asteroid))
+                        {
+                            removeList2.Add(ast);
+                        }
+                    }
                 }
+                _asteroidList.AddRange(_addList);
+                _addList.Clear();
+
+                foreach (var asteroid in removeList2)
+                {
+                    _asteroidList.Remove(asteroid);
+                }
+            }
         }
 
         public override void Draw(Camera camera)
