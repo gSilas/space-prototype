@@ -1,16 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace space_prototype.Entities
 {
     public class Ship : Entity
     {
-        //TODO
+        private List<Projectile> _bulletList;
+        private List<Entity> _entityList;
+
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                Position = CheckWithinBounds(Position + new Vector3(0f, 0f, 1f));
+                Position = CheckWithinBounds(Position + new Vector3(0f, 0f, 2f));
                 if (Position.Z > 10 && Position.Z < 30)
                 {
                     RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(-10f));
@@ -27,7 +30,7 @@ namespace space_prototype.Entities
 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                Position = CheckWithinBounds(Position + new Vector3(0f, 0f, -1f));
+                Position = CheckWithinBounds(Position + new Vector3(0f, 0f, -2f));
                 if (Position.Z < -10 && Position.Z > -30)
                 {
                     RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(10f));
@@ -47,7 +50,7 @@ namespace space_prototype.Entities
 
         private Vector3 CheckWithinBounds(Vector3 v)
         {
-            if ((v.Z < 50) && (v.Z > -50))
+            if ((v.Z < 70) && (v.Z > -70))
             {
                 return v;
             }

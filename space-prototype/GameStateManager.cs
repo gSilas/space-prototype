@@ -28,7 +28,6 @@ namespace space_prototype
 
         //MainGame
         private AsteroidField _asteroidField;
-
         private SpriteFont _bebasNeue;
 
         //MainMenu
@@ -41,6 +40,7 @@ namespace space_prototype
         private Song _mainSong;
         private Gameboard _plane;
         private Ship _ship;
+        public Model BulletModel;
 
         public GameStateManager(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, ContentManager content)
         {
@@ -55,7 +55,7 @@ namespace space_prototype
             _bebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
 
             //Audio
-            //_mainSong = Content.Load<Song>("Audio/n-Dimensions");
+            _mainSong = Content.Load<Song>("Audio/n-Dimensions");
 
             //MainMenu
             _button1 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
@@ -72,6 +72,7 @@ namespace space_prototype
             _buttonList.Add(_button3);
 
             //MainGame
+            BulletModel = Content.Load<Model>("Models/projectile");
             _asteroidField.LoadContent();
             _plane.LoadContent(Content, "models/bgplane");
             _ship.LoadContent(Content, "models/spaceship");
@@ -80,8 +81,8 @@ namespace space_prototype
             _entityList.Add(_plane);
 
             //Start Audio
-            //MediaPlayer.Play(_mainSong);
-            //MediaPlayer.Volume = 0.1f
+            MediaPlayer.Play(_mainSong);
+            MediaPlayer.Volume = 0.1f;
 
             CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
         }
@@ -151,7 +152,7 @@ namespace space_prototype
                     CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
                     break;
                 case GameStates.Game:
-                    CurrentGameState = new MainGame(this, _bebasNeue, _entityList, _camera);
+                    CurrentGameState = new MainGame(this, _bebasNeue, _entityList, _camera, _ship);
                     break;
                 case GameStates.GameOver:
                     CurrentGameState = new GameOverScreen(this);

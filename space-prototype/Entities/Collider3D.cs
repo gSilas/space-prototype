@@ -2,7 +2,6 @@
 {
     public static class Collider3D
     {
-        //TODO really expensive operation
         public static bool Intersection(Entity e1, Entity e2)
         {
             for (var i = 0; i < e1.Model.Meshes.Count; i++)

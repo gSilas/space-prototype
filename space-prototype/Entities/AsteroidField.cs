@@ -9,16 +9,14 @@ namespace space_prototype.Entities
     internal class AsteroidField : Entity
     {
         private readonly List<Asteroid> _asteroidList;
+        private readonly ContentManager _content;
         private readonly Random _random = new Random();
         private readonly int _size;
-        private readonly ContentManager _content;
-        private Rectangle _rektangle;
 
         public AsteroidField(int size, ContentManager content)
         {
             //TODO make them stay true to size
             _asteroidList = new List<Asteroid>();
-            _rektangle = Rectangle.Empty;
             _size = size;
             _content = content;
             var rx = _random.Next(-100, 100);
