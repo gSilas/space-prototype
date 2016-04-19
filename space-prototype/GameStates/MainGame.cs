@@ -69,7 +69,7 @@ namespace space_prototype.GameStates
             bullet.Model = _manager.BulletModel;
             _bulletList.Add(bullet);
         }
-
+        //TODO rework this
         private void BulletCollide(GameTime gameTime)
         {
             var eremoveList = new List<Entity>();
