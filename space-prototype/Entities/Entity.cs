@@ -42,7 +42,7 @@ namespace space_prototype.Entities
 
         public abstract void Update(GameTime gameTime);
 
-        public void Draw(Camera camera)
+        public virtual void Draw(Camera camera)
         {
             foreach (var mesh in Model.Meshes)
             {

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace space_prototype.Entities
 {
-    internal class AsteroidField
+    internal class AsteroidField : Entity
     {
         private readonly List<Asteroid> _asteroidList;
         private readonly Collider3D _collider = new Collider3D();
@@ -73,7 +73,7 @@ namespace space_prototype.Entities
             removeList = null;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             foreach (var asteroid in _asteroidList)
             {
@@ -81,7 +81,7 @@ namespace space_prototype.Entities
             }
         }
 
-        public void Draw(Camera camera)
+        public override void Draw(Camera camera)
         {
             foreach (var asteroid in _asteroidList)
             {

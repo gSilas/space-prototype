@@ -4,30 +4,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace space_prototype.Entities
 {
-    public class Gameboard
+    public class Gameboard : Entity
     {
-        private readonly Vector3 _position = new Vector3(0, 0, 0);
-        private Model _model;
 
-        public void LoadContent(ContentManager contentManager, string name)
+        public override void Draw(Camera camera)
         {
-            _model = contentManager.Load<Model>(name);
-        }
-
-        public void Draw(Camera camera)
-        {
-            foreach (var mesh in _model.Meshes)
+            foreach (var mesh in Model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.Alpha = 1f;
-                    effect.World = Matrix.CreateWorld(_position, Vector3.UnitX, Vector3.UnitY);
+                    effect.World = Matrix.CreateWorld(Position, Vector3.UnitX, Vector3.UnitY);
                     effect.View = camera.ViewMatrix;
                     effect.Projection = camera.ProjectionMatrix;
                 }
 
                 mesh.Draw();
             }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
         }
     }
 }

@@ -6,70 +6,21 @@ using space_prototype.UI;
 
 namespace space_prototype.GameStates
 {
-    public class MainMenu : Game
+    public class MainMenu : GameState
     {
-        //Buttons
-        private Button _button1;
-        private Button _button2;
-        private Button _button3;
-
-        private List<Button> _buttonList;
-
-        //Render
-        private GraphicsDeviceManager _graphics;
-
+        private readonly List<Button> _buttonList;
+        private readonly SpriteFont _font;
+        private readonly GameStateManager _manager;
         private Vector2 _mouseposition;
-        private SpriteBatch _spriteBatch;
 
-        //Visual components
-        private SpriteFont BebasNeue;
-
-        public MainMenu()
+        public MainMenu(GameStateManager manager, List<Button> buttonList, SpriteFont font)
         {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            _buttonList = buttonList;
+            _font = font;
+            _manager = manager;
         }
 
-        //TODO UI
-        protected override void Initialize()
-        {
-            //2D spritebatch
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            //Window
-            Window.Title = "3D Space Prototype";
-            Window.AllowAltF4 = true;
-            IsMouseVisible = true;
-
-            _buttonList = new List<Button>();
-
-            base.Initialize();
-        }
-
-        protected override void UnloadContent()
-        {
-            Content.Unload();
-        }
-
-        protected override void LoadContent()
-        {
-            //Fonts
-            BebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
-            _button1 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
-            _button2 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
-            _button3 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
-            _button1.Position = new Vector2(300, 100);
-            _button2.Position = new Vector2(300, 200);
-            _button3.Position = new Vector2(300, 300);
-            _button1.ButtonText = "Play";
-            _button2.ButtonText = "Credits";
-            _button3.ButtonText = "End";
-            _buttonList.Add(_button1);
-            _buttonList.Add(_button2);
-            _buttonList.Add(_button3);
-        }
-
-        protected override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             var state = Mouse.GetState();
             _mouseposition.X = state.X;
@@ -84,15 +35,14 @@ namespace space_prototype.GameStates
                         button.Select();
                         if (button.ButtonText == "Play")
                         {
-                            Program.NextGameState(Program.Gamestates.Game);
+                            _manager.NextGameState(GameStateManager.GameStates.Game);
                         }
                         else if (button.ButtonText == "Credits")
                         {
-                            Program.NextGameState(Program.Gamestates.Credits);
+                            _manager.NextGameState(GameStateManager.GameStates.Credits);
                         }
                         else if (button.ButtonText == "End")
                         {
-                            Exit();
                         }
                     }
                     else
@@ -101,24 +51,16 @@ namespace space_prototype.GameStates
                     }
                 }
             }
-
-            base.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin();
             foreach (var button in _buttonList)
             {
-                _spriteBatch.Draw(button.TButton, button.Position);
-                _spriteBatch.DrawString(BebasNeue, button.ButtonText, new Vector2(button.Position.X, button.Position.Y),
-                    Color.LightGoldenrodYellow);
+                GameStateManager.SpriteBatch.Draw(button.TButton, button.Position);
+                GameStateManager.SpriteBatch.DrawString(_font, button.ButtonText,
+                    new Vector2(button.Position.X, button.Position.Y), Color.LightGoldenrodYellow);
             }
-            _spriteBatch.End();
-
-            base.Draw(gameTime);
         }
     }
 }

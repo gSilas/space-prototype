@@ -42,6 +42,7 @@
     <Compile Include="Entities\Asteroid.cs" />
     <Compile Include="Entities\AsteroidField.cs" />
     <Compile Include="Entities\Collider3D.cs" />
+    <Compile Include="GameStateManager.cs" />
     <Compile Include="GameStates\Credits.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Gameboard.cs" />
