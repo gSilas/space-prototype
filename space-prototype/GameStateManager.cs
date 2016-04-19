@@ -111,7 +111,7 @@ namespace space_prototype
             _asteroidField = new AsteroidField(60,Content);
             _asteroidField.Initialize();
             _ship = new Ship();
-            _ship.Position = new Vector3(90, 20, 0);
+            _ship.Position = new Vector3(95, 20, 0);
             //
         }
 
@@ -139,7 +139,7 @@ namespace space_prototype
             _plane.Position = Vector3.Zero;
             _asteroidField.Initialize();
             _asteroidField.LoadContent();
-            _ship.Position = new Vector3(52, 20, 0);
+            _ship.Position = new Vector3(95, 20, 0);
             CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
         }
 

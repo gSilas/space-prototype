@@ -43,7 +43,7 @@ namespace space_prototype.Entities
             }*/
 
             Rotation += (float) gameTime.ElapsedGameTime.TotalMilliseconds*MathHelper.ToRadians(0.25f);
-            Position = Position + new Vector3(1, 0, 0);
+            Position = Position + new Vector3(0.5f, 0, 0);
             RotateY();
         }
     }

@@ -11,9 +11,13 @@ namespace space_prototype.Entities
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 Position = CheckWithinBounds(Position + new Vector3(0f, 0f, 1f));
-                if (Position.Z > 10)
+                if (Position.Z > 10 && Position.Z < 30)
                 {
                     RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(-10f));
+                }
+                else if (Position.Z > 30)
+                {
+                    RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(-20f));
                 }
                 else
                 {
@@ -24,9 +28,14 @@ namespace space_prototype.Entities
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 Position = CheckWithinBounds(Position + new Vector3(0f, 0f, -1f));
-                if (Position.Z < -10)
+                if (Position.Z < -10 && Position.Z > -30 )
                 {
                     RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(10f));
+                    ;
+                }
+                else if (Position.Z < -30)
+                {
+                    RotationMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(20f));
                     ;
                 }
                 else
@@ -38,7 +47,7 @@ namespace space_prototype.Entities
 
         private Vector3 CheckWithinBounds(Vector3 v)
         {
-            if ((v.Z < 26) && (v.Z > -26))
+            if ((v.Z < 50) && (v.Z > -50))
             {
                 return v;
             }
