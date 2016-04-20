@@ -52,6 +52,7 @@
     <Compile Include="GameStates\MainMenu.cs" />
     <Compile Include="Entities\Projectile.cs" />
     <Compile Include="Entities\Ship.cs" />
+    <Compile Include="GameStates\Options.cs" />
     <Compile Include="GameStates\WinScreen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,7 +17,8 @@ namespace space_prototype
             Game,
             GameOver,
             Win,
-            Credits
+            Credits,
+            Options
         }
 
         public static GameState CurrentGameState;
@@ -34,9 +35,11 @@ namespace space_prototype
         private Button _button1;
         private Button _button2;
         private Button _button3;
+        private Button _button4;
+        private Button _button5;
         private List<Button> _buttonList;
+        private List<Button> _buttonOptionsList;
         private Camera _camera;
-        private List<Entity> _entityList;
         private Song _mainSong;
         private Gameboard _plane;
         private Ship _ship;
@@ -55,31 +58,38 @@ namespace space_prototype
             _bebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
 
             //Audio
-            //_mainSong = Content.Load<Song>("Audio/n-Dimensions");
+            _mainSong = Content.Load<Song>("Audio/n-Dimensions");
 
             //MainMenu
             _button1 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
             _button2 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
             _button3 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
+            _button4 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
+            _button5 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
             _button1.Position = new Vector2(300, 100);
             _button2.Position = new Vector2(300, 200);
             _button3.Position = new Vector2(300, 300);
+            _button4.Position = new Vector2(300, 400);
+            _button5.Position = new Vector2(300, 100);
             _button1.ButtonText = "Play";
             _button2.ButtonText = "Credits";
             _button3.ButtonText = "Restart";
+            _button4.ButtonText = "Options";
+            _button5.ButtonText = "Disable Collide";
             _buttonList.Add(_button1);
             _buttonList.Add(_button2);
             _buttonList.Add(_button3);
+            _buttonList.Add(_button4);
+            _buttonOptionsList.Add(_button5);
 
             //MainGame
             BulletModel = Content.Load<Model>("Models/projectile");
             _asteroidField.LoadContent();
             _plane.LoadContent(Content, "models/bgplane");
             _ship.LoadContent(Content, "models/spaceship");
-            _entityList.Add(_ship);
             //Start Audio
-            //MediaPlayer.Play(_mainSong);
-            //MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Play(_mainSong);
+            MediaPlayer.Volume = 0.1f;
 
             CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
         }
@@ -94,8 +104,10 @@ namespace space_prototype
             //MainMenu
             _buttonList = new List<Button>();
 
+            //Options
+            _buttonOptionsList = new List<Button>();
+
             //MainGame
-            _entityList = new List<Entity>();
             _camera = new Camera();
             _camera.Position = new Vector3(0, 100, 0);
             _camera.Target = Vector3.Zero;
@@ -149,7 +161,7 @@ namespace space_prototype
                     CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
                     break;
                 case GameStates.Game:
-                    CurrentGameState = new MainGame(this, _bebasNeue, _entityList, _camera, _ship, _plane,_asteroidField);
+                    CurrentGameState = new MainGame(this, _bebasNeue, _camera, _ship, _plane,_asteroidField);
                     break;
                 case GameStates.GameOver:
                     CurrentGameState = new GameOverScreen(this);
@@ -159,6 +171,9 @@ namespace space_prototype
                     break;
                 case GameStates.Credits:
                     CurrentGameState = new Credits(this, _bebasNeue);
+                    break;
+                case GameStates.Options:
+                    CurrentGameState = new Options(this,_buttonOptionsList, _bebasNeue);
                     break;
             }
         }

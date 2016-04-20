@@ -25,7 +25,13 @@ namespace space_prototype.GameStates
             var state = Mouse.GetState();
             _mouseposition.X = state.X;
             _mouseposition.Y = state.Y;
-
+            foreach (var button in _buttonList)
+            {
+                if (button.Selected && !button.CursorOnButton(_mouseposition))
+                {
+                    button.DeSelect();
+                }
+            }
             if (state.LeftButton == ButtonState.Pressed)
             {
                 foreach (var button in _buttonList)
@@ -45,10 +51,10 @@ namespace space_prototype.GameStates
                         {
                             _manager.Restart();
                         }
-                    }
-                    else
-                    {
-                        button.DeSelect();
+                        else if (button.ButtonText == "Options")
+                        {
+                            _manager.NextGameState(GameStateManager.GameStates.Options);
+                        }
                     }
                 }
             }
