@@ -77,9 +77,6 @@ namespace space_prototype
             _plane.LoadContent(Content, "models/bgplane");
             _ship.LoadContent(Content, "models/spaceship");
             _entityList.Add(_ship);
-            _entityList.Add(_asteroidField);
-            _entityList.Add(_plane);
-
             //Start Audio
             //MediaPlayer.Play(_mainSong);
             //MediaPlayer.Volume = 0.1f;
@@ -152,7 +149,7 @@ namespace space_prototype
                     CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
                     break;
                 case GameStates.Game:
-                    CurrentGameState = new MainGame(this, _bebasNeue, _entityList, _camera, _ship);
+                    CurrentGameState = new MainGame(this, _bebasNeue, _entityList, _camera, _ship, _plane,_asteroidField);
                     break;
                 case GameStates.GameOver:
                     CurrentGameState = new GameOverScreen(this);
