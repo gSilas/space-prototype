@@ -55,7 +55,7 @@ namespace space_prototype
             _bebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
 
             //Audio
-            _mainSong = Content.Load<Song>("Audio/n-Dimensions");
+            //_mainSong = Content.Load<Song>("Audio/n-Dimensions");
 
             //MainMenu
             _button1 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
@@ -81,8 +81,8 @@ namespace space_prototype
             _entityList.Add(_plane);
 
             //Start Audio
-            MediaPlayer.Play(_mainSong);
-            MediaPlayer.Volume = 0.1f;
+            //MediaPlayer.Play(_mainSong);
+            //MediaPlayer.Volume = 0.1f;
 
             CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
         }
