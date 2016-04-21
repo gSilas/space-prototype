@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace space_prototype.Entities
 {
     public class Ship : Entity
     {
-        private List<Projectile> _bulletList;
-        private List<Entity> _entityList;
-
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W))

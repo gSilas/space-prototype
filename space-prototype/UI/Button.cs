@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,9 +9,9 @@ namespace space_prototype.UI
         private readonly Texture2D _button_notselected;
         private readonly Texture2D _button_selected;
         public string ButtonText;
-        public bool Selected;
 
         public Vector2 Position;
+        public bool Selected;
         public Texture2D TButton;
 
         public Button(Texture2D selected, Texture2D deselected)

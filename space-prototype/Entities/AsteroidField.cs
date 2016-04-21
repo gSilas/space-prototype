@@ -8,10 +8,10 @@ namespace space_prototype.Entities
 {
     public class AsteroidField
     {
-        public List<Asteroid> AsteroidList;
         private readonly ContentManager _content;
         private readonly Random _random = new Random();
         private readonly int _size;
+        public List<Asteroid> AsteroidList;
 
         public AsteroidField(int size, ContentManager content)
         {
@@ -45,7 +45,7 @@ namespace space_prototype.Entities
             var addList = new List<Asteroid>();
             var removeList = new List<Asteroid>();
 
-            for (var i = 0; i < 20; i++)
+            for (var i = 0; i < 15; i++)
             {
                 var rx = _random.Next(-200, -150);
                 var rz = _random.Next(-100, 100);

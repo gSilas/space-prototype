@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -40,10 +41,14 @@ namespace space_prototype
         private List<Button> _buttonList;
         private List<Button> _buttonOptionsList;
         private Camera _camera;
+        private SoundEffect _click;
+        private SoundEffect _hit;
+        private SoundEffect _laser;
         private Song _mainSong;
         private Gameboard _plane;
         private Ship _ship;
         public Model BulletModel;
+        public Model BulletModel2;
 
         public GameStateManager(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, ContentManager content)
         {
@@ -59,6 +64,9 @@ namespace space_prototype
 
             //Audio
             _mainSong = Content.Load<Song>("Audio/n-Dimensions");
+            _laser = Content.Load<SoundEffect>("Audio/Effect/laser");
+            _click = Content.Load<SoundEffect>("Audio/Effect/click");
+            _hit = Content.Load<SoundEffect>("Audio/Effect/hit");
 
             //MainMenu
             _button1 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
@@ -75,7 +83,7 @@ namespace space_prototype
             _button2.ButtonText = "Credits";
             _button3.ButtonText = "Restart";
             _button4.ButtonText = "Options";
-            _button5.ButtonText = "Disable Collide";
+            _button5.ButtonText = "Load Special Projectile (non reversable)";
             _buttonList.Add(_button1);
             _buttonList.Add(_button2);
             _buttonList.Add(_button3);
@@ -84,6 +92,7 @@ namespace space_prototype
 
             //MainGame
             BulletModel = Content.Load<Model>("Models/projectile");
+            BulletModel2 = Content.Load<Model>("Models/special_projectile");
             _asteroidField.LoadContent();
             _plane.LoadContent(Content, "models/bgplane");
             _ship.LoadContent(Content, "models/spaceship");
@@ -91,7 +100,7 @@ namespace space_prototype
             MediaPlayer.Play(_mainSong);
             MediaPlayer.Volume = 0.1f;
 
-            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
+            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue, _click);
         }
 
         public void UnloadContent()
@@ -118,7 +127,7 @@ namespace space_prototype
             _camera.AspectRatio = Graphics.GraphicsDevice.DisplayMode.AspectRatio;
             _plane = new Gameboard();
             _plane.Position = Vector3.Zero;
-            _asteroidField = new AsteroidField(60, Content);
+            _asteroidField = new AsteroidField(50, Content);
             _asteroidField.Initialize();
             _ship = new Ship();
             _ship.Position = new Vector3(95, 20, 0);
@@ -150,7 +159,7 @@ namespace space_prototype
             _asteroidField.Initialize();
             _asteroidField.LoadContent();
             _ship.Position = new Vector3(95, 20, 0);
-            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
+            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue, _click);
         }
 
         public void NextGameState(GameStates target)
@@ -158,13 +167,14 @@ namespace space_prototype
             switch (target)
             {
                 case GameStates.MainMenu:
-                    CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
+                    CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue, _click);
                     break;
                 case GameStates.Game:
-                    CurrentGameState = new MainGame(this, _bebasNeue, _camera, _ship, _plane,_asteroidField);
+                    CurrentGameState = new MainGame(this, _bebasNeue, _camera, _ship, _plane, _asteroidField, _laser,
+                        _hit);
                     break;
                 case GameStates.GameOver:
-                    CurrentGameState = new GameOverScreen(this);
+                    CurrentGameState = new GameOverScreen(this, _bebasNeue);
                     break;
                 case GameStates.Win:
                     CurrentGameState = new WinScreen(this);
@@ -173,7 +183,7 @@ namespace space_prototype
                     CurrentGameState = new Credits(this, _bebasNeue);
                     break;
                 case GameStates.Options:
-                    CurrentGameState = new Options(this,_buttonOptionsList, _bebasNeue);
+                    CurrentGameState = new Options(this, _buttonOptionsList, _bebasNeue);
                     break;
             }
         }

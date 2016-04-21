@@ -11,7 +11,7 @@ namespace space_prototype.Entities
 
         public override void Update(GameTime gameTime)
         {
-            Position = Position + new Vector3(-1.8f, 0, 0);
+            Position = Position + new Vector3(-1.9f, 0, 0);
         }
     }
 }

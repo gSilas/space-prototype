@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using space_prototype.UI;
@@ -9,15 +10,17 @@ namespace space_prototype.GameStates
     public class MainMenu : GameState
     {
         private readonly List<Button> _buttonList;
+        private readonly SoundEffect _click;
         private readonly SpriteFont _font;
         private readonly GameStateManager _manager;
         private Vector2 _mouseposition;
 
-        public MainMenu(GameStateManager manager, List<Button> buttonList, SpriteFont font)
+        public MainMenu(GameStateManager manager, List<Button> buttonList, SpriteFont font, SoundEffect click)
         {
             _buttonList = buttonList;
             _font = font;
             _manager = manager;
+            _click = click;
         }
 
         public override void Update(GameTime gameTime)
@@ -31,14 +34,13 @@ namespace space_prototype.GameStates
                 {
                     button.DeSelect();
                 }
-            }
-            if (state.LeftButton == ButtonState.Pressed)
-            {
-                foreach (var button in _buttonList)
+
+                if (state.LeftButton == ButtonState.Pressed)
                 {
                     if (button.CursorOnButton(_mouseposition))
                     {
                         button.Select();
+                        _click.Play(0.07f, 0, 0);
                         if (button.ButtonText == "Play")
                         {
                             _manager.NextGameState(GameStateManager.GameStates.Game);

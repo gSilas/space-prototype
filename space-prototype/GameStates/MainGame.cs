@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using space_prototype.Entities;
@@ -8,16 +10,24 @@ namespace space_prototype.GameStates
 {
     public class MainGame : GameState
     {
+        private readonly AsteroidField _asteroids;
         private readonly List<Projectile> _bulletList;
         private readonly Camera _camera;
-        private readonly Gameboard _plane;
-        private readonly AsteroidField _asteroids;
         private readonly SpriteFont _font;
+        private readonly SoundEffect _hit;
+        private readonly SoundEffect _laser;
         private readonly GameStateManager _manager;
+        private readonly Gameboard _plane;
 
         private readonly Ship _ship;
+        private int _ammo = 20;
+        private int _health = 100;
+        private TimeSpan _reloadTime;
+        private int _score;
+        private TimeSpan _shootTime;
 
-        public MainGame(GameStateManager manager, SpriteFont font,  Camera camera, Ship ship, Gameboard plane, AsteroidField asteroids)
+        public MainGame(GameStateManager manager, SpriteFont font, Camera camera, Ship ship, Gameboard plane,
+            AsteroidField asteroids, SoundEffect laser, SoundEffect hit)
         {
             _bulletList = new List<Projectile>();
             _manager = manager;
@@ -26,29 +36,58 @@ namespace space_prototype.GameStates
             _ship = ship;
             _plane = plane;
             _asteroids = asteroids;
+            _laser = laser;
+            _hit = hit;
+            _reloadTime = TimeSpan.FromSeconds(3);
+            _shootTime = TimeSpan.FromMilliseconds(150);
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                SpawnBullet();
-            }
-
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 _manager.NextGameState(GameStateManager.GameStates.MainMenu);
             }
+
             _ship.Update(gameTime);
             _camera.Update(gameTime);
             _plane.Update(gameTime);
             _asteroids.Update(gameTime);
+
+            Collide(gameTime);
+
+            if (_ammo > 0)
+            {
+                _shootTime = _shootTime.Subtract(gameTime.ElapsedGameTime);
+                if (_shootTime.TotalSeconds <= 0)
+                {
+                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        SpawnBullet(gameTime);
+                        _ammo--;
+                        _laser.Play(0.01f, 1f, 0);
+                        _shootTime = TimeSpan.FromMilliseconds(150);
+                    }
+                }
+            }
+
+            if (_ammo <= 0)
+            {
+                _reloadTime = _reloadTime.Subtract(gameTime.ElapsedGameTime);
+                if (_reloadTime.TotalSeconds <= 0)
+                {
+                    _reloadTime = TimeSpan.FromSeconds(3);
+                    _ammo = 20;
+                }
+            }
+
             foreach (var bullet in _bulletList)
             {
                 bullet.Update(gameTime);
             }
-            if (gameTime.TotalGameTime.Milliseconds % 200 == 0)
-                BulletCollide(gameTime);
+
+            if (_health <= 0)
+                _manager.NextGameState(GameStateManager.GameStates.GameOver);
         }
 
         public override void Draw(GameTime gameTime)
@@ -65,28 +104,46 @@ namespace space_prototype.GameStates
             _asteroids.Draw(_camera);
 
             //2D SpriteBatch stuff
-            GameStateManager.SpriteBatch.DrawString(_font, "Move around with W (Up) and S (Down) and JKLIUO for Camera!",
-                new Vector2(50, 0), Color.LightGoldenrodYellow);
+            GameStateManager.SpriteBatch.DrawString(_font, "Ammunition: " + _ammo, new Vector2(400, 400),
+                Color.LightGoldenrodYellow);
+            GameStateManager.SpriteBatch.DrawString(_font, "Health: " + _health, new Vector2(600, 400),
+                Color.LightGoldenrodYellow);
+            GameStateManager.SpriteBatch.DrawString(_font, "Score: " + _score, new Vector2(600, 350),
+                Color.LightGoldenrodYellow);
+            if (_ammo <= 0)
+            {
+                GameStateManager.SpriteBatch.DrawString(_font, "Reloadtime: " + (float) _reloadTime.TotalSeconds,
+                    new Vector2(50, 400), Color.LightGoldenrodYellow);
+            }
+            if (_score >= 100)
+            {
+                _score -= 100;
+                _health += 50;
+            }
+            GameStateManager.SpriteBatch.DrawString(_font,
+                "Move around with W (Up) and S (Down)\nand fire your Laser with Space",
+                new Vector2(300, 0), Color.LightGoldenrodYellow);
         }
 
-        private void SpawnBullet()
+        private void SpawnBullet(GameTime gTime)
         {
             var bullet = new Projectile(_ship.Position);
             bullet.Model = _manager.BulletModel;
             _bulletList.Add(bullet);
         }
-        //TODO rework this
-        private void BulletCollide(GameTime gameTime)
+
+        private void Collide(GameTime gameTime)
         {
             var aremoveList = new List<Asteroid>();
             var bremoveList = new List<Projectile>();
             foreach (var asteroid in _asteroids.AsteroidList)
-            {              
+            {
                 foreach (var bullet in _bulletList)
                 {
                     if (bullet.Position.X < -200)
                     {
                         bremoveList.Add(bullet);
+                        continue;
                     }
 
                     if (asteroid.Model != null)
@@ -95,10 +152,22 @@ namespace space_prototype.GameStates
                         {
                             aremoveList.Add(asteroid);
                             bremoveList.Add(bullet);
+                            _score += 1;
+                            _hit.Play(0.05f, -1f, 0.5f);
                         }
                     }
                 }
             }
+            foreach (var asteroid in _asteroids.AsteroidList)
+            {
+                if (Collider3D.Intersection(_ship, asteroid))
+                {
+                    aremoveList.Add(asteroid);
+                    _health -= 5;
+                    _hit.Play(0.15f, 0f, 0);
+                }
+            }
+
             foreach (var ast in aremoveList)
             {
                 _asteroids.AsteroidList.Remove(ast);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,7 +6,7 @@ using space_prototype.UI;
 
 namespace space_prototype.GameStates
 {
-    class Options : GameState
+    internal class Options : GameState
     {
         private readonly List<Button> _buttonList;
         private readonly SpriteFont _font;
@@ -26,7 +22,6 @@ namespace space_prototype.GameStates
 
         public override void Update(GameTime gameTime)
         {
-
             var state = Mouse.GetState();
             _mouseposition.X = state.X;
             _mouseposition.Y = state.Y;
@@ -44,9 +39,9 @@ namespace space_prototype.GameStates
                     if (button.CursorOnButton(_mouseposition))
                     {
                         button.Select();
-                        if (button.ButtonText == "Disable Collide")
+                        if (button.ButtonText == "Load Special Projectile (non reversable)")
                         {
-                            
+                            _manager.BulletModel = _manager.BulletModel2;
                         }
                     }
                 }
