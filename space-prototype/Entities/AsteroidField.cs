@@ -15,7 +15,6 @@ namespace space_prototype.Entities
 
         public AsteroidField(int size, ContentManager content)
         {
-            //TODO make them stay true to size
             AsteroidList = new List<Asteroid>();
             _size = size;
             _content = content;

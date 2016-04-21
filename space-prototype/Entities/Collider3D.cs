@@ -1,6 +1,5 @@
 ﻿namespace space_prototype.Entities
 {
-    //TODO Make a specific bulletcollider
     public static class Collider3D
     {
         public static bool Intersection(Entity e1, Entity e2)
