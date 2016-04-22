@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,11 +21,11 @@ namespace space_prototype.GameStates
 
         private readonly Ship _ship;
         private int _ammo = 20;
+        private bool _collide;
         private int _health = 100;
         private TimeSpan _reloadTime;
         private int _score;
         private TimeSpan _shootTime;
-        private bool _collide;
 
         public MainGame(GameStateManager manager, SpriteFont font, Camera camera, Ship ship, Gameboard plane,
             AsteroidField asteroids, SoundEffect laser, SoundEffect hit)
@@ -66,7 +65,7 @@ namespace space_prototype.GameStates
             {
                 Collide(gameTime);
             }
-         
+
 
             if (_ammo > 0)
             {
@@ -129,19 +128,20 @@ namespace space_prototype.GameStates
             }
             if (_score >= 100)
             {
-                    GameStateManager.SpriteBatch.DrawString(_font, "[E]xchange 100 Score for 50 Health?", new Vector2(200, 450), Color.LightGoldenrodYellow);
-                    
+                GameStateManager.SpriteBatch.DrawString(_font, "[E]xchange 100 Score for 50 Health?",
+                    new Vector2(200, 450), Color.LightGoldenrodYellow);
+
                 if (Keyboard.GetState().IsKeyDown(Keys.E))
                 {
                     _score -= 100;
-                    _health += 50;       
+                    _health += 50;
                 }
             }
 
             if (!_collide)
             {
-
-                GameStateManager.SpriteBatch.DrawString(_font,"No Collison",new Vector2(0, 200), Color.LightGoldenrodYellow);
+                GameStateManager.SpriteBatch.DrawString(_font, "No Collison", new Vector2(0, 200),
+                    Color.LightGoldenrodYellow);
             }
 
             GameStateManager.SpriteBatch.DrawString(_font,

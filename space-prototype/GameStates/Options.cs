@@ -10,9 +10,9 @@ namespace space_prototype.GameStates
     internal class Options : GameState
     {
         private readonly List<Button> _buttonList;
+        private readonly SoundEffect _click;
         private readonly SpriteFont _font;
         private readonly GameStateManager _manager;
-        private readonly SoundEffect _click;
         private Vector2 _mouseposition;
 
 
