@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -53,6 +54,7 @@ namespace space_prototype.GameStates
             if (Keyboard.GetState().IsKeyDown(Keys.F1))
             {
                 _collide = !_collide;
+                _hit.Play(0.5f, 1, 1);
             }
 
             _ship.Update(gameTime);
@@ -114,25 +116,37 @@ namespace space_prototype.GameStates
             _asteroids.Draw(_camera);
 
             //2D SpriteBatch stuff
-            GameStateManager.SpriteBatch.DrawString(_font, "Ammunition: " + _ammo, new Vector2(400, 400),
+            GameStateManager.SpriteBatch.DrawString(_font, "Bullets: " + _ammo, new Vector2(10, 100),
                 Color.LightGoldenrodYellow);
-            GameStateManager.SpriteBatch.DrawString(_font, "Health: " + _health, new Vector2(600, 400),
+            GameStateManager.SpriteBatch.DrawString(_font, "Health: " + _health, new Vector2(10, 0),
                 Color.LightGoldenrodYellow);
-            GameStateManager.SpriteBatch.DrawString(_font, "Score: " + _score, new Vector2(600, 350),
+            GameStateManager.SpriteBatch.DrawString(_font, "Score: " + _score, new Vector2(10, 50),
                 Color.LightGoldenrodYellow);
             if (_ammo <= 0)
             {
                 GameStateManager.SpriteBatch.DrawString(_font, "Reloadtime: " + (float) _reloadTime.TotalSeconds,
-                    new Vector2(50, 400), Color.LightGoldenrodYellow);
+                    new Vector2(10, 450), Color.LightGoldenrodYellow);
             }
-            if (_score >= 100)
+            if (_score >= 00)
             {
-                _score -= 100;
-                _health += 50;
+                    GameStateManager.SpriteBatch.DrawString(_font, "[E]xchange 100 Score for 50 Health?", new Vector2(200, 450), Color.LightGoldenrodYellow);
+                    
+                if (Keyboard.GetState().IsKeyDown(Keys.E))
+                {
+                    _score -= 100;
+                    _health += 50;       
+                }
             }
+
+            if (!_collide)
+            {
+
+                GameStateManager.SpriteBatch.DrawString(_font,"No Collison",new Vector2(0, 200), Color.LightGoldenrodYellow);
+            }
+
             GameStateManager.SpriteBatch.DrawString(_font,
-                "Move around with W (Up) and S (Down)\nand fire your Laser with Space!\nDisable Collison with F1 !",
-                new Vector2(300, 0), Color.LightGoldenrodYellow);
+                "Move around with W and S\nand fire your Laser with Space!\nDisable Collison with F1 !",
+                new Vector2(520, 0), Color.LightGoldenrodYellow);
         }
 
         private void SpawnBullet(GameTime gTime)
