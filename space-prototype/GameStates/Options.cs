@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using space_prototype.UI;
@@ -11,13 +12,16 @@ namespace space_prototype.GameStates
         private readonly List<Button> _buttonList;
         private readonly SpriteFont _font;
         private readonly GameStateManager _manager;
+        private readonly SoundEffect _click;
         private Vector2 _mouseposition;
 
-        public Options(GameStateManager manager, List<Button> buttonList, SpriteFont font)
+
+        public Options(GameStateManager manager, List<Button> buttonList, SpriteFont font, SoundEffect click)
         {
             _buttonList = buttonList;
             _font = font;
             _manager = manager;
+            _click = click;
         }
 
         public override void Update(GameTime gameTime)
@@ -39,6 +43,7 @@ namespace space_prototype.GameStates
                     if (button.CursorOnButton(_mouseposition))
                     {
                         button.Select();
+                        _click.Play(0.07f, 0, 0);
                         if (button.ButtonText == "Load Special Projectile (non reversable)")
                         {
                             _manager.BulletModel = _manager.BulletModel2;

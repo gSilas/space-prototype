@@ -183,7 +183,7 @@ namespace space_prototype
                     CurrentGameState = new Credits(this, _bebasNeue);
                     break;
                 case GameStates.Options:
-                    CurrentGameState = new Options(this, _buttonOptionsList, _bebasNeue);
+                    CurrentGameState = new Options(this, _buttonOptionsList, _bebasNeue, _click);
                     break;
             }
         }
