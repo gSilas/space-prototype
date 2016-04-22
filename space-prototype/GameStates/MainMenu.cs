@@ -41,7 +41,7 @@ namespace space_prototype.GameStates
                     {
                         button.Select();
                         _click.Play(0.07f, 0, 0);
-                        if (button.ButtonText == "Play")
+                        if (button.ButtonText == "Endless Mode")
                         {
                             _manager.NextGameState(GameStateManager.GameStates.Game);
                         }
