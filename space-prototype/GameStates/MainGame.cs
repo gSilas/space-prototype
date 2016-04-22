@@ -25,6 +25,7 @@ namespace space_prototype.GameStates
         private TimeSpan _reloadTime;
         private int _score;
         private TimeSpan _shootTime;
+        private bool _collide;
 
         public MainGame(GameStateManager manager, SpriteFont font, Camera camera, Ship ship, Gameboard plane,
             AsteroidField asteroids, SoundEffect laser, SoundEffect hit)
@@ -38,6 +39,7 @@ namespace space_prototype.GameStates
             _asteroids = asteroids;
             _laser = laser;
             _hit = hit;
+            _collide = true;
             _reloadTime = TimeSpan.FromSeconds(3);
             _shootTime = TimeSpan.FromMilliseconds(150);
         }
@@ -48,13 +50,21 @@ namespace space_prototype.GameStates
             {
                 _manager.NextGameState(GameStateManager.GameStates.MainMenu);
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.F1))
+            {
+                _collide = !_collide;
+            }
 
             _ship.Update(gameTime);
             _camera.Update(gameTime);
             _plane.Update(gameTime);
             _asteroids.Update(gameTime);
 
-            Collide(gameTime);
+            if (_collide)
+            {
+                Collide(gameTime);
+            }
+         
 
             if (_ammo > 0)
             {
@@ -65,7 +75,7 @@ namespace space_prototype.GameStates
                     {
                         SpawnBullet(gameTime);
                         _ammo--;
-                        _laser.Play(0.01f, 1f, 0);
+                        _laser.Play(0.2f, 0f, 0);
                         _shootTime = TimeSpan.FromMilliseconds(150);
                     }
                 }
@@ -121,7 +131,7 @@ namespace space_prototype.GameStates
                 _health += 50;
             }
             GameStateManager.SpriteBatch.DrawString(_font,
-                "Move around with W (Up) and S (Down)\nand fire your Laser with Space",
+                "Move around with W (Up) and S (Down)\nand fire your Laser with Space!\nDisable Collison with F1 !",
                 new Vector2(300, 0), Color.LightGoldenrodYellow);
         }
 
@@ -153,7 +163,6 @@ namespace space_prototype.GameStates
                             aremoveList.Add(asteroid);
                             bremoveList.Add(bullet);
                             _score += 1;
-                            _hit.Play(0.05f, -1f, 0.5f);
                         }
                     }
                 }
@@ -164,7 +173,7 @@ namespace space_prototype.GameStates
                 {
                     aremoveList.Add(asteroid);
                     _health -= 5;
-                    _hit.Play(0.15f, 0f, 0);
+                    _hit.Play(0.2f, 0f, 0);
                 }
             }
 

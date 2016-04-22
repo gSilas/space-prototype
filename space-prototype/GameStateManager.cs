@@ -98,7 +98,7 @@ namespace space_prototype
             _ship.LoadContent(Content, "models/spaceship");
             //Start Audio
             MediaPlayer.Play(_mainSong);
-            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Volume = 0.01f;
 
             CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue, _click);
         }
