@@ -127,7 +127,7 @@ namespace space_prototype.GameStates
                 GameStateManager.SpriteBatch.DrawString(_font, "Reloadtime: " + (float) _reloadTime.TotalSeconds,
                     new Vector2(10, 450), Color.LightGoldenrodYellow);
             }
-            if (_score >= 00)
+            if (_score >= 100)
             {
                     GameStateManager.SpriteBatch.DrawString(_font, "[E]xchange 100 Score for 50 Health?", new Vector2(200, 450), Color.LightGoldenrodYellow);
                     
