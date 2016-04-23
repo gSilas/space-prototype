@@ -34,7 +34,7 @@ namespace space_prototype.GameStates
                 {
                     button.DeSelect();
                 }
-
+                //TODO replace string matching with Enum/ID
                 if (state.LeftButton == ButtonState.Pressed)
                 {
                     if (button.CursorOnButton(_mouseposition))

@@ -17,7 +17,6 @@ namespace space_prototype
             MainMenu,
             Game,
             GameOver,
-            Win,
             Credits,
             Options
         }
@@ -68,12 +67,12 @@ namespace space_prototype
             _click = Content.Load<SoundEffect>("Audio/Effect/click");
             _hit = Content.Load<SoundEffect>("Audio/Effect/hit");
 
-            //MainMenu
-            _button1 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
-            _button2 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
-            _button3 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
-            _button4 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
-            _button5 = new Button(Content.Load<Texture2D>("UI/red_button01"), Content.Load<Texture2D>("UI/red_button02"));
+            //MainMenu //TODO add nice function
+            _button1 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
+            _button2 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
+            _button3 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
+            _button4 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
+            _button5 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
             _button1.Position = new Vector2(300, 100);
             _button2.Position = new Vector2(300, 200);
             _button3.Position = new Vector2(300, 300);
@@ -175,9 +174,6 @@ namespace space_prototype
                     break;
                 case GameStates.GameOver:
                     CurrentGameState = new GameOverScreen(this, _bebasNeue);
-                    break;
-                case GameStates.Win:
-                    CurrentGameState = new WinScreen(this);
                     break;
                 case GameStates.Credits:
                     CurrentGameState = new Credits(this, _bebasNeue);

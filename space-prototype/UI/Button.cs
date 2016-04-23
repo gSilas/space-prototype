@@ -16,8 +16,8 @@ namespace space_prototype.UI
 
         public Button(Texture2D selected, Texture2D deselected)
         {
-            _button_selected = deselected;
-            _button_notselected = selected;
+            _button_selected = selected;
+            _button_notselected = deselected;
             TButton = _button_notselected;
         }
 
