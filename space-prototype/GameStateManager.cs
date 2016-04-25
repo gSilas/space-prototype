@@ -79,9 +79,9 @@ namespace space_prototype
             _button4.Position = new Vector2(300, 400);
             _button5.Position = new Vector2(300, 100);
             _button1.ButtonText = "Endless Mode";
-            _button4.ButtonText = "Credits";
             _button2.ButtonText = "Restart";
             _button3.ButtonText = "Options";
+            _button4.ButtonText = "Credits";
             _button5.ButtonText = "Load Special Projectile (non reversable)";
             _buttonList.Add(_button1);
             _buttonList.Add(_button2);

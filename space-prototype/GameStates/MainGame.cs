@@ -138,6 +138,7 @@ namespace space_prototype.GameStates
                 }
             }
 
+            //TODO way to fast
             if (!_collide)
             {
                 GameStateManager.SpriteBatch.DrawString(_font, "No Collison", new Vector2(0, 200),
