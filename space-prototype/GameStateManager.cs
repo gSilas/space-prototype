@@ -130,7 +130,6 @@ namespace space_prototype
             _asteroidField.Initialize();
             _ship = new Ship();
             _ship.Position = new Vector3(95, 20, 0);
-            //
         }
 
         public void Update(GameTime gameTime)
