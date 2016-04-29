@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using space_prototype.UI;
@@ -42,7 +41,6 @@ namespace space_prototype.GameStates
                         {
                             _manager.NextGameState(GameStateManager.GameStates.Game);
                         }
-                     
                     }
                 }
             }

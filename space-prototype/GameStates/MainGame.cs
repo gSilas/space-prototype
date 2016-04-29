@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using space_prototype.Entities;
@@ -19,7 +16,6 @@ namespace space_prototype.GameStates
 
         public MainGame(GameStateManager manager, SpriteFont font, Camera camera, Ship ship, Gameboard plane)
         {
-   
             _manager = manager;
             _font = font;
             _camera = camera;
@@ -33,15 +29,11 @@ namespace space_prototype.GameStates
             {
                 _manager.NextGameState(GameStateManager.GameStates.MainMenu);
             }
-         
+
 
             _ship.Update(gameTime);
             _camera.Update(gameTime);
             _plane.Update(gameTime);
-
-
-         
-     
         }
 
         public override void Draw(GameTime gameTime)
@@ -51,13 +43,9 @@ namespace space_prototype.GameStates
             //3D stuff
             _plane.Draw(_camera);
             _ship.Draw(_camera);
- 
+
 
             //2D SpriteBatch stuff
-         
         }
-
-
-     
     }
 }

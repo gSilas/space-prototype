@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 using space_prototype.Entities;
 using space_prototype.GameStates;
 using space_prototype.UI;
@@ -30,14 +28,9 @@ namespace space_prototype
 
         //MainMenu
         private Button _button1;
-        private Button _button2;
-        private Button _button3;
-        private Button _button4;
-        private Button _button5;
         private List<Button> _buttonList;
-        private List<Button> _buttonOptionsList;
         private Camera _camera;
-  
+
         private Gameboard _plane;
         private Ship _ship;
 
@@ -53,15 +46,14 @@ namespace space_prototype
             //Font
             _bebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
 
-         
 
             //MainMenu //TODO add nice function
             _button1 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
-          
+
             _button1.Position = new Vector2(300, 100);
 
             _button1.ButtonText = "Play";
-   
+
             _buttonList.Add(_button1);
 
 
@@ -81,9 +73,6 @@ namespace space_prototype
         {
             //MainMenu
             _buttonList = new List<Button>();
-
-            //Options
-            _buttonOptionsList = new List<Button>();
 
             //MainGame
             _camera = new Camera();
