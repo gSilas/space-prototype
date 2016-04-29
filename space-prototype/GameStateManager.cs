@@ -16,9 +16,7 @@ namespace space_prototype
         {
             MainMenu,
             Game,
-            GameOver,
-            Credits,
-            Options
+            GameOver
         }
 
         public static GameState CurrentGameState;
@@ -28,7 +26,6 @@ namespace space_prototype
         public static ContentManager Content;
 
         //MainGame
-        private AsteroidField _asteroidField;
         private SpriteFont _bebasNeue;
 
         //MainMenu
@@ -40,14 +37,9 @@ namespace space_prototype
         private List<Button> _buttonList;
         private List<Button> _buttonOptionsList;
         private Camera _camera;
-        private SoundEffect _click;
-        private SoundEffect _hit;
-        private SoundEffect _laser;
-        private Song _mainSong;
+  
         private Gameboard _plane;
         private Ship _ship;
-        public Model BulletModel;
-        public Model BulletModel2;
 
         public GameStateManager(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, ContentManager content)
         {
@@ -61,45 +53,23 @@ namespace space_prototype
             //Font
             _bebasNeue = Content.Load<SpriteFont>("Fonts/bebasneue");
 
-            //Audio
-            _mainSong = Content.Load<Song>("Audio/n-Dimensions");
-            _laser = Content.Load<SoundEffect>("Audio/Effect/laser");
-            _click = Content.Load<SoundEffect>("Audio/Effect/click");
-            _hit = Content.Load<SoundEffect>("Audio/Effect/hit");
+         
 
             //MainMenu //TODO add nice function
             _button1 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
-            _button2 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
-            _button3 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
-            _button4 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
-            _button5 = new Button(Content.Load<Texture2D>("UI/red_button02"), Content.Load<Texture2D>("UI/red_button01"));
+          
             _button1.Position = new Vector2(300, 100);
-            _button2.Position = new Vector2(300, 200);
-            _button3.Position = new Vector2(300, 300);
-            _button4.Position = new Vector2(300, 400);
-            _button5.Position = new Vector2(300, 100);
-            _button1.ButtonText = "Endless Mode";
-            _button2.ButtonText = "Restart";
-            _button3.ButtonText = "Options";
-            _button4.ButtonText = "Credits";
-            _button5.ButtonText = "Load Special Projectile (non reversable)";
+
+            _button1.ButtonText = "Play";
+   
             _buttonList.Add(_button1);
-            _buttonList.Add(_button2);
-            _buttonList.Add(_button3);
-            _buttonList.Add(_button4);
-            _buttonOptionsList.Add(_button5);
+
 
             //MainGame
-            BulletModel = Content.Load<Model>("Models/projectile");
-            BulletModel2 = Content.Load<Model>("Models/special_projectile");
-            _asteroidField.LoadContent();
             _plane.LoadContent(Content, "models/bgplane");
             _ship.LoadContent(Content, "models/spaceship");
-            //Start Audio
-            MediaPlayer.Play(_mainSong);
-            MediaPlayer.Volume = 0.01f;
 
-            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue, _click);
+            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
         }
 
         public void UnloadContent()
@@ -126,8 +96,6 @@ namespace space_prototype
             _camera.AspectRatio = Graphics.GraphicsDevice.DisplayMode.AspectRatio;
             _plane = new Gameboard();
             _plane.Position = Vector3.Zero;
-            _asteroidField = new AsteroidField(50, Content);
-            _asteroidField.Initialize();
             _ship = new Ship();
             _ship.Position = new Vector3(95, 20, 0);
             //
@@ -155,10 +123,8 @@ namespace space_prototype
             _camera.FarClipPlane = 10000f;
             _camera.AspectRatio = Graphics.GraphicsDevice.DisplayMode.AspectRatio;
             _plane.Position = Vector3.Zero;
-            _asteroidField.Initialize();
-            _asteroidField.LoadContent();
             _ship.Position = new Vector3(95, 20, 0);
-            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue, _click);
+            CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
         }
 
         public void NextGameState(GameStates target)
@@ -166,20 +132,13 @@ namespace space_prototype
             switch (target)
             {
                 case GameStates.MainMenu:
-                    CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue, _click);
+                    CurrentGameState = new MainMenu(this, _buttonList, _bebasNeue);
                     break;
                 case GameStates.Game:
-                    CurrentGameState = new MainGame(this, _bebasNeue, _camera, _ship, _plane, _asteroidField, _laser,
-                        _hit);
+                    CurrentGameState = new MainGame(this, _bebasNeue, _camera, _ship, _plane);
                     break;
                 case GameStates.GameOver:
                     CurrentGameState = new GameOverScreen(this, _bebasNeue);
-                    break;
-                case GameStates.Credits:
-                    CurrentGameState = new Credits(this, _bebasNeue);
-                    break;
-                case GameStates.Options:
-                    CurrentGameState = new Options(this, _buttonOptionsList, _bebasNeue, _click);
                     break;
             }
         }

@@ -10,17 +10,15 @@ namespace space_prototype.GameStates
     public class MainMenu : GameState
     {
         private readonly List<Button> _buttonList;
-        private readonly SoundEffect _click;
         private readonly SpriteFont _font;
         private readonly GameStateManager _manager;
         private Vector2 _mouseposition;
 
-        public MainMenu(GameStateManager manager, List<Button> buttonList, SpriteFont font, SoundEffect click)
+        public MainMenu(GameStateManager manager, List<Button> buttonList, SpriteFont font)
         {
             _buttonList = buttonList;
             _font = font;
             _manager = manager;
-            _click = click;
         }
 
         public override void Update(GameTime gameTime)
@@ -40,23 +38,11 @@ namespace space_prototype.GameStates
                     if (button.CursorOnButton(_mouseposition))
                     {
                         button.Select();
-                        _click.Play(0.07f, 0, 0);
-                        if (button.ButtonText == "Endless Mode")
+                        if (button.ButtonText == "Play")
                         {
                             _manager.NextGameState(GameStateManager.GameStates.Game);
                         }
-                        else if (button.ButtonText == "Credits")
-                        {
-                            _manager.NextGameState(GameStateManager.GameStates.Credits);
-                        }
-                        else if (button.ButtonText == "Restart")
-                        {
-                            _manager.Restart();
-                        }
-                        else if (button.ButtonText == "Options")
-                        {
-                            _manager.NextGameState(GameStateManager.GameStates.Options);
-                        }
+                     
                     }
                 }
             }
